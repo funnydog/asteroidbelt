@@ -23,6 +23,7 @@ srcs = [
 
   'sprite.cpp',
   'starfield.cpp',
+  'asteroidmanager.cpp',
 
   # graphics
   'camera.cpp',

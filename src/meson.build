@@ -22,6 +22,7 @@ srcs = [
   'titleview.cpp',
 
   'sprite.cpp',
+  'starfield.cpp',
 
   # graphics
   'camera.cpp',

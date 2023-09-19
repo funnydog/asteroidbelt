@@ -2,6 +2,7 @@
 #include <cassert>
 
 #include <GL/glew.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "color.hpp"
 #include "glcheck.hpp"
@@ -36,6 +37,14 @@ const char *fragmentShader =
 	"\n	OutColor = FragColor * texture(Texture, FragUV.st);"
 	"\n}";
 
+static const glm::vec2 QuadUnits[4] = {
+	{ 0.f, 0.f },
+	{ 0.f, 1.f },
+	{ 1.f, 0.f },
+	{ 1.f, 1.f },
+};
+
+static const std::uint16_t QuadIndices[] = { 0, 1, 2, 1, 3, 2 };
 }
 
 RenderTarget::RenderTarget()
@@ -344,42 +353,55 @@ RenderTarget::getVertexArray(unsigned vtxCount)
 }
 
 void
-RenderTarget::blit(
-	const Texture *texture,
-	const FloatRect *srcRect,
-	glm::vec2 dst,
+RenderTarget::blitQuad(
+	const Texture &texture,
+	const FloatRect &srcRect,
+	const FloatRect &dstRect,
 	Color color)
 {
-	static const glm::vec2 units[4] = {
-		{ 0.f, 0.f },
-		{ 0.f, 1.f },
-		{ 1.f, 0.f },
-		{ 1.f, 1.f },
-	};
-	static const std::uint16_t indices[] = { 0, 1, 2, 1, 3, 2 };
-
-	glm::vec2 texSize(1.f);
-	FloatRect texRect{{0.f, 0.f}, {1.f, 1.f}};
-
-	if (texture)
-	{
-		texSize = texture->getSize();
-	}
-
-	if (srcRect)
-	{
-		texRect.pos = srcRect->pos / texSize;
-		texRect.size = srcRect->size / texSize;
-	}
-
-	setTexture(texture);
+	setTexture(&texture);
 	auto base = getPrimIndex(6, 4);
-	addIndices(base, indices + 0, indices + 6);
+	addIndices(base, QuadIndices + 0, QuadIndices + 6);
 	auto vertices = getVertexArray(4);
 	for (int i = 0; i < 4; i++)
 	{
-		vertices[i].pos = units[i] * texSize + dst;
-		vertices[i].uv = units[i] * texRect.size + texRect.pos;
+		vertices[i].pos = QuadUnits[i] * dstRect.size + dstRect.pos;
+		vertices[i].uv = QuadUnits[i] * srcRect.size + srcRect.pos;
+		vertices[i].color = color;
+	}
+}
+
+void
+RenderTarget::blitQuad(
+	const Texture &texture,
+	const FloatRect &srcRect,
+	const FloatRect &dstRect,
+	Color color,
+	float rotationAngle,
+	glm::vec2 offset,
+	float scale)
+{
+	auto mat4 = glm::translate(
+		glm::rotate(
+			glm::translate(
+				glm::scale(
+					glm::mat4(1.f),
+					glm::vec3(scale, scale, 1.f)),
+				glm::vec3(offset, 0.f)),
+			rotationAngle,
+			glm::vec3(0.f, 0.f, -1.f)),
+		glm::vec3(-offset, 0.f));
+
+	setTexture(&texture);
+	auto base = getPrimIndex(6, 4);
+	addIndices(base, QuadIndices + 0, QuadIndices + 6);
+	auto vertices = getVertexArray(4);
+	for (int i = 0; i < 4; i++)
+	{
+		vertices[i].pos = glm::vec2(
+			mat4 * glm::vec4(
+				QuadUnits[i] * dstRect.size, 0.f, 1.f)) + dstRect.pos;
+		vertices[i].uv = QuadUnits[i] * srcRect.size + srcRect.pos;
 		vertices[i].color = color;
 	}
 }

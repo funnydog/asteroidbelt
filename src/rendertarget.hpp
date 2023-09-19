@@ -92,10 +92,18 @@ public:
 	/**
 	 * Blit the texture.
 	 */
-	void blit(const Texture *texture,
-		  const FloatRect *srcRect,
-		  glm::vec2 dst,
-		  Color color);
+	void blitQuad(const Texture &texture,
+		      const FloatRect &textureRect,
+		      const FloatRect &dstRect,
+		      Color color);
+
+	void blitQuad(const Texture &texture,
+		      const FloatRect &textureRect,
+		      const FloatRect &dstRect,
+		      Color color,
+		      float rotationAngle,
+		      glm::vec2 offset,
+		      float scale);
 
 	/**
 	 * Use the @window as a drawing backend.

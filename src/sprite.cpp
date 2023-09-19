@@ -1,28 +1,26 @@
 #include "sprite.hpp"
 
+#include "rendertarget.hpp"
+
 Sprite::Sprite(
-	const Texture *texture,
+	const Texture &texture,
 	FloatRect initialFrame,
 	glm::vec2 location,
 	glm::vec2 velocity)
 	: mTexture(texture)
-	, mUV(initialFrame)
-	, mSize(initialFrame.size)
+	, mTextureSize(texture.getSize())
+	, mFrameSize(initialFrame.size)
 	, mTintColor(Color::White)
-	, mStart(initialFrame.pos)
-	, mFrameColumns(1)
 	, mFrameIndex(0)
-	, mFrameCount(1)
 	, mFrameElapsed(0.f)
 	, mFrameDelay(0.f)
-	, mRepeat(true)
-	, mForward(true)
 	, mLocation(location)
 	, mVelocity(velocity)
 	, mRotation(0.f)
 	, mCollisionRadius(0.f)
-	, mBoundingPadding()
+	, mBoundingPadding(0.f)
 {
+	addFrame(initialFrame);
 }
 
 glm::vec2
@@ -82,7 +80,7 @@ Sprite::getFrameIndex() const
 void
 Sprite::setFrameIndex(unsigned index)
 {
-	mFrameIndex = index % mFrameCount;
+	mFrameIndex = index % mFrames.size();
 }
 
 float
@@ -100,17 +98,97 @@ Sprite::setFrameDelay(float delay)
 glm::vec2
 Sprite::getCenter() const
 {
-	return mSize * 0.5f + mLocation;
+	return mFrameSize * 0.5f + mLocation;
 }
 
 const FloatRect&
 Sprite::getSource() const
 {
-	return mUV;
+	return mFrames[mFrameIndex];
 }
 
-const FloatRect
+FloatRect
 Sprite::getDestination() const
 {
-	return { mLocation, mSize };
+	return { mLocation, mFrameSize };
+}
+
+FloatRect
+Sprite::getBoundingBox() const
+{
+	return {
+		mLocation + mBoundingPadding,
+		mFrameSize - mBoundingPadding * 2.f
+	};
+}
+
+bool
+Sprite::isBoxColliding(const FloatRect &other) const
+{
+	return getBoundingBox().intersect(other);
+}
+
+bool
+Sprite::isCircleColliding(glm::vec2 otherCenter, float otherRadius)
+{
+	auto radiusSum = mCollisionRadius+otherRadius;
+	otherCenter -= getCenter();
+	return otherCenter.x * otherCenter.x + otherCenter.y * otherCenter.y <
+		radiusSum * radiusSum;
+}
+
+float
+Sprite::getCollisionRadius() const
+{
+	return mCollisionRadius;
+}
+
+void
+Sprite::setCollisionRadius(float radius)
+{
+	mCollisionRadius = radius;
+}
+
+void
+Sprite::addFrame(const FloatRect &rect)
+{
+	mFrames.emplace_back(rect.pos / mTextureSize, rect.size / mTextureSize);
+}
+
+void
+Sprite::update(float dt)
+{
+	mFrameElapsed += dt;
+	if (mFrameElapsed >= mFrameDelay)
+	{
+		mFrameElapsed -= mFrameDelay;
+		mFrameIndex++;
+		if (mFrameIndex >= mFrames.size())
+		{
+			mFrameIndex = 0;
+		}
+	}
+	mLocation += mVelocity * dt;
+}
+
+void
+Sprite::draw(RenderTarget &target)
+{
+	auto srcRect = getSource();
+	auto dstRect = getDestination();
+	if (mRotation != 0.f)
+	{
+		target.blitQuad(
+			mTexture,
+			srcRect,
+			dstRect,
+			mTintColor,
+			mRotation,
+			mFrameSize * 0.5f,
+			1.f);
+	}
+	else
+	{
+		target.blitQuad(mTexture, srcRect, dstRect, mTintColor);
+	}
 }

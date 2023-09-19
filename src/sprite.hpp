@@ -1,15 +1,19 @@
 #pragma once
 
+#include <vector>
+
 #include <glm/glm.hpp>
 
 #include "color.hpp"
 #include "rect.hpp"
-#include "texture.hpp"
+
+class RenderTarget;
+class Texture;
 
 class Sprite
 {
 public:
-	Sprite(const Texture *texture, FloatRect initialFrame, glm::vec2 location, glm::vec2 velocity);
+	Sprite(const Texture &texture, FloatRect initialFrame, glm::vec2 location, glm::vec2 velocity);
 
 	glm::vec2 getLocation() const;
 	void setLocation(glm::vec2 location);
@@ -31,25 +35,32 @@ public:
 
 	glm::vec2 getCenter() const;
 	const FloatRect& getSource() const;
-	const FloatRect getDestination() const;
+	FloatRect getDestination() const;
 
+	FloatRect getBoundingBox() const;
+	bool isBoxColliding(const FloatRect &other) const;
+	bool isCircleColliding(glm::vec2 otherCenter, float otherRadius);
+
+	float getCollisionRadius() const;
+	void setCollisionRadius(float radius);
+
+	void addFrame(const FloatRect &rect);
+
+	virtual void update(float dt);
+	virtual void draw(RenderTarget &target);
 
 private:
 	// drawable
-	const Texture *mTexture;
-	FloatRect mUV;
-	glm::vec2 mSize;
+	const Texture &mTexture;
+	glm::vec2 mTextureSize;
+	std::vector<FloatRect> mFrames;
+	glm::vec2 mFrameSize;
 	Color mTintColor;
 
 	// animation
-	glm::vec2 mStart;
-	unsigned mFrameColumns;
 	unsigned mFrameIndex;
-	unsigned mFrameCount;
 	float mFrameElapsed;
 	float mFrameDelay;
-	bool  mRepeat;
-	bool  mForward;
 
 	// position
 	glm::vec2 mLocation;

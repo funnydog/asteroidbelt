@@ -20,6 +20,7 @@ srcs = [
   # views
   'viewstack.cpp',
   'titleview.cpp',
+  'gameview.cpp',
 
   'sprite.cpp',
   'starfield.cpp',

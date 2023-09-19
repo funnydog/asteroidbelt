@@ -37,4 +37,10 @@ int randomInt(int exclusiveMax)
 	return distr(randomEngine);
 }
 
+float randomFloat(float exclusiveMax)
+{
+	std::uniform_real_distribution<float> distr(0.f, exclusiveMax);
+	return distr(randomEngine);
+}
+
 }

@@ -7,4 +7,5 @@ namespace Utility
 {
 std::string loadFile(const std::filesystem::path &filename);
 int randomInt(int exclusiveMax);
+float randomFloat(float exclusiveMax);
 }

@@ -76,9 +76,8 @@ Enemy::update(float dt)
 	mSprite.setVelocity(dir * mSpeed);
 	mSprite.update(dt);
 	auto loc = mSprite.getLocation();
-	mSprite.setRotation(
-		-std::atan2(loc.y - mPreviousLocation.y,
-			   loc.x - mPreviousLocation.x));
+	mSprite.setRotation(glm::atan(loc.y - mPreviousLocation.y,
+				      loc.x - mPreviousLocation.x));
 
 	if (hasReachedWaypoint() && !mWaypoints.empty())
 	{

@@ -389,7 +389,7 @@ RenderTarget::blitQuad(
 					glm::vec3(scale, scale, 1.f)),
 				glm::vec3(offset, 0.f)),
 			rotationAngle,
-			glm::vec3(0.f, 0.f, -1.f)),
+			glm::vec3(0.f, 0.f, 1.f)),
 		glm::vec3(-offset, 0.f));
 
 	setTexture(&texture);

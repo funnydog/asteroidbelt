@@ -39,6 +39,12 @@ PlayerManager::PlayerManager(
 	mPlayerSprite.setCollisionRadius(mPlayerRadius);
 }
 
+const Sprite&
+PlayerManager::getPlayer() const
+{
+	return mPlayerSprite;
+}
+
 void
 PlayerManager::fireShot()
 {

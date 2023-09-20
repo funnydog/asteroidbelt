@@ -18,6 +18,8 @@ public:
 	void update(float dt, Window &window);
 	void draw(RenderTarget &target);
 
+	const Sprite& getPlayer() const;
+
 private:
 	void fireShot();
 	void handleKeyboardInput(Window &window);

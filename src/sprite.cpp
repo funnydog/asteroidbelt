@@ -13,7 +13,7 @@ Sprite::Sprite(
 	, mTintColor(Color::White)
 	, mFrameIndex(0)
 	, mFrameElapsed(0.f)
-	, mFrameDelay(0.f)
+	, mFrameDelay(0.1f)
 	, mLocation(location)
 	, mVelocity(velocity)
 	, mRotation(0.f)

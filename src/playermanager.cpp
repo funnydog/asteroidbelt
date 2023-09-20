@@ -35,7 +35,6 @@ PlayerManager::PlayerManager(
 		frame.pos.x += frame.size.x;
 		mPlayerSprite.addFrame(frame);
 	}
-	mPlayerSprite.setFrameDelay(0.0167f);
 	mPlayerSprite.setCollisionRadius(mPlayerRadius);
 }
 

@@ -49,7 +49,7 @@ AsteroidManager::addAsteroid()
 		asteroid->addFrame(frame);
 	}
 
-	asteroid->setFrameDelay(1.f / mFrameCount);
+	asteroid->setFrameDelay(1.1f / mFrameCount);
 	asteroid->setRotation(Utility::randomFloat(3.141592654f));
 	asteroid->setCollisionRadius(15.f);
 

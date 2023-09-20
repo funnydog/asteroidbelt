@@ -28,6 +28,7 @@ srcs = [
   'shotmanager.cpp',
   'playermanager.cpp',
   'enemy.cpp',
+  'enemymanager.cpp',
 
   # graphics
   'camera.cpp',

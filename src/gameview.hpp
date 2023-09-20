@@ -4,6 +4,7 @@
 #include "viewstack.hpp"
 
 #include "asteroidmanager.hpp"
+#include "playermanager.hpp"
 #include "starfield.hpp"
 
 class GameView: public View
@@ -16,6 +17,8 @@ public:
 	virtual void render(RenderTarget &target) override;
 private:
 	ViewStack &mStack;
+	Window &mWindow;
 	AsteroidManager mAsteroidManager;
 	StarField mStarField;
+	PlayerManager mPlayerManager;
 };

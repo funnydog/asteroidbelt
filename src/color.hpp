@@ -18,6 +18,8 @@ public:
 	constexpr operator std::uint32_t() const;
 	constexpr operator glm::vec4() const;
 
+	constexpr Color& operator*=(float intensity);
+
 public:
 	static const Color Black;
 	static const Color White;
@@ -69,6 +71,15 @@ Color::operator glm::vec4() const
 		static_cast<float>(b) / 255.0f,
 		static_cast<float>(a) / 255.0f
 	};
+}
+
+constexpr Color&
+Color::operator*=(float intensity)
+{
+	r = static_cast<uint8_t>(r * intensity);
+	g = static_cast<uint8_t>(g * intensity);
+	b = static_cast<uint8_t>(b * intensity);
+	return *this;
 }
 
 constexpr Color Color::Black(0, 0, 0);

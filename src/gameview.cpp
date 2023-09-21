@@ -30,6 +30,10 @@ GameView::GameView(ViewStack &stack, const Context &context)
 			{{0, 200}, {50, 50}},
 			6,
 			mPlayerManager.getPlayer())
+	, mExplosionManager({{0.f, 450.f}, {2.f, 2.f}},
+			    context.textures->get(TextureID::SpriteSheet),
+			    {{0.f, 100.f}, {50.f, 50.f}},
+			    3)
 {
 }
 
@@ -39,6 +43,7 @@ GameView::update(float dt)
 	mAsteroidManager.update(dt);
 	mPlayerManager.update(dt, mWindow);
 	mEnemyManager.update(dt);
+	mExplosionManager.update(dt);
 	mStarField.update(dt);
 	return true;
 }
@@ -57,5 +62,6 @@ GameView::render(RenderTarget &target)
 	mAsteroidManager.draw(target);
 	mPlayerManager.draw(target);
 	mEnemyManager.draw(target);
+	mExplosionManager.draw(target);
 	target.draw();
 }

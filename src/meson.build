@@ -30,6 +30,7 @@ srcs = [
   'shotmanager.cpp',
   'playermanager.cpp',
   'enemymanager.cpp',
+  'explosionmanager.cpp',
 
   # graphics
   'camera.cpp',

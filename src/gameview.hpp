@@ -6,6 +6,7 @@
 #include "asteroidmanager.hpp"
 #include "playermanager.hpp"
 #include "enemymanager.hpp"
+#include "explosionmanager.hpp"
 #include "starfield.hpp"
 
 class GameView: public View
@@ -23,4 +24,5 @@ private:
 	StarField mStarField;
 	PlayerManager mPlayerManager;
 	EnemyManager mEnemyManager;
+	ExplosionManager mExplosionManager;
 };

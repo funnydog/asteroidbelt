@@ -46,6 +46,18 @@ PlayerManager::getPlayer() const
 	return mPlayerSprite;
 }
 
+int
+PlayerManager::getLives() const
+{
+	return mLivesRemaining;
+}
+
+void
+PlayerManager::loseLife()
+{
+	mLivesRemaining--;
+}
+
 bool
 PlayerManager::isDestroyed() const
 {
@@ -56,6 +68,26 @@ void
 PlayerManager::setDestroyed(bool destroyed)
 {
 	mDestroyed = destroyed;
+}
+
+long
+PlayerManager::getScore() const
+{
+	return mPlayerScore;
+}
+
+void
+PlayerManager::addScore(long points)
+{
+	mPlayerScore += points;
+}
+
+void
+PlayerManager::reset()
+{
+	mPlayerSprite.setLocation(PlayerStartLocation);
+	mDestroyed = false;
+	mShotManager.mShots.clear();
 }
 
 void
@@ -140,10 +172,4 @@ PlayerManager::draw(RenderTarget &target)
 	{
 		mPlayerSprite.draw(target);
 	}
-}
-
-void
-PlayerManager::addScore(long points)
-{
-	mPlayerScore += points;
 }

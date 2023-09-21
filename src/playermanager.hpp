@@ -20,10 +20,16 @@ public:
 
 	const Sprite& getPlayer() const;
 
+	int getLives() const;
+	void loseLife();
+
 	bool isDestroyed() const;
 	void setDestroyed(bool destroyed);
 
+	long getScore() const;
 	void addScore(long points);
+
+	void reset();
 
 private:
 	void fireShot();

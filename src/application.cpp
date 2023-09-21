@@ -60,6 +60,7 @@ Application::~Application()
 void
 Application::loadAssets()
 {
+	mFonts.load(FontID::Pericles14, "assets/fonts/Peric.ttf", 14);
 	mTextures.load(TextureID::TitleScreen, "assets/textures/TitleScreen.png");
 	mTextures.load(TextureID::SpriteSheet, "assets/textures/SpriteSheet.png");
 }

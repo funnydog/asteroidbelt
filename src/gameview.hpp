@@ -9,6 +9,7 @@
 #include "explosionmanager.hpp"
 #include "starfield.hpp"
 #include "collisionmanager.hpp"
+#include "font.hpp"
 
 class GameView: public View
 {
@@ -21,6 +22,8 @@ public:
 private:
 	ViewStack &mStack;
 	Window &mWindow;
+	Font &mFont;
+
 	AsteroidManager mAsteroidManager;
 	StarField mStarField;
 	PlayerManager mPlayerManager;

@@ -6,9 +6,16 @@
 #include "texture.hpp"
 #include "window.hpp"
 
+namespace
+{
+const glm::vec2 ScoreLocation(20.f, 10.f);
+const glm::vec2 LivesLocation(20.f, 25.f);
+}
+
 GameView::GameView(ViewStack &stack, const Context &context)
 	: mStack(stack)
 	, mWindow(*context.window)
+	, mFont(context.fonts->get(FontID::Pericles14))
 	, mAsteroidManager(context.window->getSize().x,
 			   context.window->getSize().y,
 			   10,
@@ -64,10 +71,28 @@ void
 GameView::render(RenderTarget &target)
 {
 	target.clear(Color::Black);
+
 	mStarField.draw(target);
 	mAsteroidManager.draw(target);
 	mPlayerManager.draw(target);
 	mEnemyManager.draw(target);
 	mExplosionManager.draw(target);
+	mFont.draw(
+		target,
+		ScoreLocation,
+		"Score: " + std::to_string(
+			mPlayerManager.getScore()),
+		Color::White);
+
+	if (mPlayerManager.getLives() >= 0)
+	{
+		mFont.draw(
+			target,
+			LivesLocation,
+			"Ships Remaining: " + std::to_string(
+				mPlayerManager.getLives()),
+			Color::White);
+	}
+
 	target.draw();
 }

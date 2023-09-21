@@ -23,6 +23,9 @@ public:
 	void update(float dt);
 	void draw(RenderTarget &target);
 
+	bool isActive() const;
+	void setActive(bool active);
+
 private:
 	void updateWaveSpawns(float dt);
 

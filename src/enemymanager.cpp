@@ -150,3 +150,15 @@ EnemyManager::draw(RenderTarget &target)
 		enemyPtr->draw(target);
 	}
 }
+
+bool
+EnemyManager::isActive() const
+{
+	return mActive;
+}
+
+void
+EnemyManager::setActive(bool active)
+{
+	mActive = active;
+}

@@ -23,11 +23,12 @@ srcs = [
   'gameview.cpp',
 
   'sprite.cpp',
+  'enemy.cpp',
+  'particle.cpp',
   'starfield.cpp',
   'asteroidmanager.cpp',
   'shotmanager.cpp',
   'playermanager.cpp',
-  'enemy.cpp',
   'enemymanager.cpp',
 
   # graphics

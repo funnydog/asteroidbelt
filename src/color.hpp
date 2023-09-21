@@ -36,6 +36,8 @@ public:
 	std::uint8_t g;
 	std::uint8_t b;
 	std::uint8_t a;
+
+	friend constexpr Color mix(Color x, Color y, float a);
 };
 
 constexpr
@@ -81,6 +83,17 @@ Color::operator*=(float intensity)
 	b = static_cast<uint8_t>(b * intensity);
 	return *this;
 }
+
+constexpr Color
+mix(Color x, Color y, float a)
+{
+	x.r = static_cast<uint8_t>(x.r * (1.0 - a) + y.r * a);
+	x.g = static_cast<uint8_t>(x.g * (1.0 - a) + y.g * a);
+	x.b = static_cast<uint8_t>(x.b * (1.0 - a) + y.b * a);
+	x.a = static_cast<uint8_t>(x.a * (1.0 - a) + y.a * a);
+	return x;
+}
+
 
 constexpr Color Color::Black(0, 0, 0);
 constexpr Color Color::White(255, 255, 255);

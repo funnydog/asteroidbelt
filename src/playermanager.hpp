@@ -20,6 +20,11 @@ public:
 
 	const Sprite& getPlayer() const;
 
+	bool isDestroyed() const;
+	void setDestroyed(bool destroyed);
+
+	void addScore(long points);
+
 private:
 	void fireShot();
 	void handleKeyboardInput(Window &window);

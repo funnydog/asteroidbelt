@@ -44,6 +44,18 @@ PlayerManager::getPlayer() const
 	return mPlayerSprite;
 }
 
+bool
+PlayerManager::isDestroyed() const
+{
+	return mDestroyed;
+}
+
+void
+PlayerManager::setDestroyed(bool destroyed)
+{
+	mDestroyed = destroyed;
+}
+
 void
 PlayerManager::fireShot()
 {
@@ -126,4 +138,10 @@ PlayerManager::draw(RenderTarget &target)
 	{
 		mPlayerSprite.draw(target);
 	}
+}
+
+void
+PlayerManager::addScore(long points)
+{
+	mPlayerScore += points;
 }

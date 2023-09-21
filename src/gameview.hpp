@@ -8,6 +8,7 @@
 #include "enemymanager.hpp"
 #include "explosionmanager.hpp"
 #include "starfield.hpp"
+#include "collisionmanager.hpp"
 
 class GameView: public View
 {
@@ -25,4 +26,5 @@ private:
 	PlayerManager mPlayerManager;
 	EnemyManager mEnemyManager;
 	ExplosionManager mExplosionManager;
+	CollisionManager mCollisionManager;
 };

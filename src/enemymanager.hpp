@@ -32,9 +32,14 @@ private:
 	unsigned mFrameCount;
 
 	const Sprite &mPlayer;
+public:
 	std::vector<std::unique_ptr<Enemy>> mEnemies;
+
+private:
 	std::vector<std::size_t> mWaveSpawns;
+public:
 	ShotManager mShots;
+private:
 
 	float mNextWaveTimer;
 	float mShipSpawnTimer;

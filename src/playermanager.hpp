@@ -45,5 +45,6 @@ private:
 	float mMinShotTimer;
 	float mPlayerRadius;
 
+public:
 	ShotManager mShotManager;
 };

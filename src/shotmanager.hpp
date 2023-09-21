@@ -30,5 +30,6 @@ private:
 	float mShotSpeed;
 	float mCollisionRadius;
 	FloatRect mScreenBounds;
+public:
 	std::vector<std::unique_ptr<Sprite>> mShots;
 };

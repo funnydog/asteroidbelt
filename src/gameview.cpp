@@ -34,6 +34,11 @@ GameView::GameView(ViewStack &stack, const Context &context)
 			    context.textures->get(TextureID::SpriteSheet),
 			    {{0.f, 100.f}, {50.f, 50.f}},
 			    3)
+	, mCollisionManager(
+		mAsteroidManager,
+		mPlayerManager,
+		mEnemyManager,
+		mExplosionManager)
 {
 }
 
@@ -44,6 +49,7 @@ GameView::update(float dt)
 	mPlayerManager.update(dt, mWindow);
 	mEnemyManager.update(dt);
 	mExplosionManager.update(dt);
+	mCollisionManager.checkCollisions();
 	mStarField.update(dt);
 	return true;
 }

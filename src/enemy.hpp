@@ -10,7 +10,7 @@
 class Texture;
 class RenderTarget;
 
-class Enemy
+class Enemy: public Sprite
 {
 public:
 	Enemy(glm::vec2 location, const Texture &texture, const FloatRect &initialFrame, unsigned frameCount);
@@ -19,13 +19,12 @@ public:
 	bool hasReachedWaypoint() const;
 	bool isActive() const;
 
-	void update(float dt);
-	void draw(RenderTarget &target);
+	void setDestroyed(bool destroyed);
 
-	glm::vec2 getLocation() const;
+	virtual void update(float dt) override;
+	virtual void draw(RenderTarget &target) override;
 
 private:
-	Sprite mSprite;
 	std::deque<glm::vec2> mWaypoints;
 	glm::vec2 mCurrentWaypoint;
 	float mSpeed;

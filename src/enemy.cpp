@@ -6,7 +6,7 @@ static const float EnemyRadius = 15.f;
 }
 
 Enemy::Enemy(glm::vec2 location, const Texture &texture, const FloatRect &initialFrame, unsigned frameCount)
-	: mSprite(texture, initialFrame, location, glm::vec2(0.f))
+	: Sprite(texture, initialFrame, location, glm::vec2(0.f))
 	, mWaypoints()
 	, mCurrentWaypoint(location)
 	, mSpeed(120.f)
@@ -17,9 +17,9 @@ Enemy::Enemy(glm::vec2 location, const Texture &texture, const FloatRect &initia
 	for (unsigned i = 1; i < frameCount; i++)
 	{
 		rect.pos.x += rect.size.x;
-		mSprite.addFrame(rect);
+		addFrame(rect);
 	}
-	mSprite.setCollisionRadius(EnemyRadius);
+	setCollisionRadius(EnemyRadius);
 }
 
 void
@@ -31,8 +31,8 @@ Enemy::addWaypoint(glm::vec2 waypoint)
 bool
 Enemy::hasReachedWaypoint() const
 {
-	auto distance = glm::distance(mSprite.getLocation(), mCurrentWaypoint);
-	return distance < mSprite.getDestination().size.x * 0.5f;
+	auto distance = glm::distance(mLocation, mCurrentWaypoint);
+	return distance < mFrameSize.x * 0.5f;
 }
 
 bool
@@ -53,10 +53,10 @@ Enemy::isActive() const
 	return true;
 }
 
-glm::vec2
-Enemy::getLocation() const
+void
+Enemy::setDestroyed(bool destroyed)
 {
-	return mSprite.getLocation();
+	mDestroyed = destroyed;
 }
 
 void
@@ -67,17 +67,16 @@ Enemy::update(float dt)
 		return;
 	}
 
-	mPreviousLocation = mSprite.getLocation();
+	mPreviousLocation = mLocation;
 	glm::vec2 dir = mCurrentWaypoint - mPreviousLocation;
 	if (dir.x != 0.f || dir.y != 0.f)
 	{
 		dir = glm::normalize(dir);
 	}
-	mSprite.setVelocity(dir * mSpeed);
-	mSprite.update(dt);
-	auto loc = mSprite.getLocation();
-	mSprite.setRotation(glm::atan(loc.y - mPreviousLocation.y,
-				      loc.x - mPreviousLocation.x));
+	mVelocity = dir * mSpeed;
+	Sprite::update(dt);
+	setRotation(glm::atan(mLocation.y - mPreviousLocation.y,
+			      mLocation.x - mPreviousLocation.x));
 
 	if (hasReachedWaypoint() && !mWaypoints.empty())
 	{
@@ -91,6 +90,6 @@ Enemy::draw(RenderTarget &target)
 {
 	if (isActive())
 	{
-		mSprite.draw(target);
+		Sprite::draw(target);
 	}
 }

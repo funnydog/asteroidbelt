@@ -49,7 +49,7 @@ public:
 	virtual void update(float dt);
 	virtual void draw(RenderTarget &target);
 
-private:
+protected:
 	// drawable
 	const Texture &mTexture;
 	glm::vec2 mTextureSize;

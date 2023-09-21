@@ -8,20 +8,22 @@
 
 namespace
 {
+const glm::vec2 PlayerStartLocation(390.f, 550.f);
+const int PlayerStartLives = 3;
 }
 
 PlayerManager::PlayerManager(
 	const FloatRect &screenBounds,
 	const Texture &texture, const FloatRect &initialFrame,
 	unsigned frameCount)
-	: mPlayerSprite(texture, initialFrame, {500, 500}, {})
+	: mPlayerSprite(texture, initialFrame, PlayerStartLocation, {})
 	, mPlayerSpeed(160.f)
 	, mPlayerAreaLimit{
 			{0.f, screenBounds.size.y * 0.5f},
 			{screenBounds.size.x, screenBounds.size.y * 0.5f}
 		}
 	, mPlayerScore(0)
-	, mLivesRemaining(3)
+	, mLivesRemaining(PlayerStartLives)
 	, mDestroyed(false)
 	, mGunOffset(45.f * 0.5f, 10.f)
 	, mShotTimer(0.f)

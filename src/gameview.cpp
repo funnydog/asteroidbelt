@@ -8,6 +8,8 @@
 
 namespace
 {
+const float PlayerDeathDelay = 10.f;
+
 const glm::vec2 ScoreLocation(20.f, 10.f);
 const glm::vec2 LivesLocation(20.f, 25.f);
 }
@@ -16,6 +18,7 @@ GameView::GameView(ViewStack &stack, const Context &context)
 	: mStack(stack)
 	, mWindow(*context.window)
 	, mFont(context.fonts->get(FontID::Pericles14))
+	, mDeathTimer(0.f)
 	, mAsteroidManager(context.window->getSize().x,
 			   context.window->getSize().y,
 			   10,
@@ -49,15 +52,44 @@ GameView::GameView(ViewStack &stack, const Context &context)
 {
 }
 
+void
+GameView::resetGame()
+{
+	mEnemyManager.mEnemies.clear();
+	mEnemyManager.mShots.mShots.clear();
+	mEnemyManager.setActive(true);
+	mPlayerManager.reset();
+}
+
 bool
 GameView::update(float dt)
 {
+	mStarField.update(dt);
 	mAsteroidManager.update(dt);
 	mPlayerManager.update(dt, mWindow);
 	mEnemyManager.update(dt);
 	mExplosionManager.update(dt);
 	mCollisionManager.checkCollisions();
-	mStarField.update(dt);
+
+	if (mDeathTimer > 0.f)
+	{
+		mDeathTimer -= dt;
+		if (mDeathTimer <= 0.f)
+		{
+			mDeathTimer = 0.f;
+			resetGame();
+		}
+	}
+	else if (mPlayerManager.isDestroyed())
+	{
+		mDeathTimer = PlayerDeathDelay;
+		mEnemyManager.setActive(false);
+		mPlayerManager.loseLife();
+		if (mPlayerManager.getLives() < 0)
+		{
+			mStack.pushView(ViewID::GameOver);
+		}
+	}
 	return true;
 }
 

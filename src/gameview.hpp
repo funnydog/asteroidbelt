@@ -19,10 +19,16 @@ public:
 	virtual bool update(float dt) override;
 	virtual bool handleEvent(const Event &event) override;
 	virtual void render(RenderTarget &target) override;
+
+private:
+	void resetGame();
+
 private:
 	ViewStack &mStack;
 	Window &mWindow;
 	Font &mFont;
+
+	float mDeathTimer;
 
 	AsteroidManager mAsteroidManager;
 	StarField mStarField;

@@ -3,12 +3,14 @@ glew = dependency('glew')
 glfw3 = dependency('glfw3')
 glm = dependency('glm')
 opengl = dependency('gl')
+vorbisfile = dependency('vorbisfile')
 
 deps = [
   freetype2,
   glew,
   glfw3,
   glm,
+  vorbisfile,
   opengl,
 ]
 
@@ -42,6 +44,10 @@ srcs = [
   'texture.cpp',
   'window.cpp',
 
+  # audio
+  'soundfile.cpp',
+  'soundfilewav.cpp',
+  'soundfileogg.cpp',
   # utilities / third party
   'glcheck.cpp',
   'stb_image.cpp',

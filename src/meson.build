@@ -25,6 +25,7 @@ srcs = [
   'viewstack.cpp',
   'titleview.cpp',
   'gameview.cpp',
+  'gameoverview.cpp',
 
   'sprite.cpp',
   'enemy.cpp',

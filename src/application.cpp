@@ -7,6 +7,7 @@
 
 #include "titleview.hpp"
 #include "gameview.hpp"
+#include "gameoverview.hpp"
 
 namespace
 {
@@ -80,6 +81,7 @@ Application::registerViews()
 {
 	mViewStack.registerView<TitleView>(ViewID::Title);
 	mViewStack.registerView<GameView>(ViewID::Playing);
+	mViewStack.registerView<GameOverView>(ViewID::GameOver);
 }
 
 void

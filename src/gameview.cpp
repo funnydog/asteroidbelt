@@ -8,7 +8,7 @@
 
 namespace
 {
-const float PlayerDeathDelay = 10.f;
+const float PlayerDeathDelay = 5.f;
 
 const glm::vec2 ScoreLocation(20.f, 10.f);
 const glm::vec2 LivesLocation(20.f, 25.f);
@@ -71,7 +71,11 @@ GameView::update(float dt)
 	mExplosionManager.update(dt);
 	mCollisionManager.checkCollisions();
 
-	if (mDeathTimer > 0.f)
+	if (mPlayerManager.getLives() < 0)
+	{
+		// GAME OVER, do not respawn
+	}
+	else if (mDeathTimer > 0.f)
 	{
 		mDeathTimer -= dt;
 		if (mDeathTimer <= 0.f)

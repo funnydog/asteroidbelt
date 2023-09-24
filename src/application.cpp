@@ -35,7 +35,7 @@ Application::Application()
 		throw std::runtime_error(error);
 	}
 
-	mWindow.open("FloodControl", SCREEN_WIDTH, SCREEN_HEIGHT);
+	mWindow.open("AsteroidBelt", SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// track the window events
 	mEventQueue.track(mWindow);

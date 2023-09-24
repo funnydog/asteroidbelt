@@ -19,7 +19,9 @@ const unsigned SCREEN_HEIGHT = 600;
 }
 
 Application::Application()
-	: mEventQueue()
+	: mAudioDevice()
+	, mSoundPlayer(mAudioDevice)
+	, mEventQueue()
 	, mWindow()
 	, mTarget()
 	, mFonts()
@@ -60,7 +62,15 @@ Application::~Application()
 void
 Application::loadAssets()
 {
+	mSoundPlayer.load(SoundID::Shot1, "assets/sounds/Shot1.wav");
+	mSoundPlayer.load(SoundID::Shot2, "assets/sounds/Shot2.wav");
+	mSoundPlayer.load(SoundID::Explosion1, "assets/sounds/Explosion1.wav");
+	mSoundPlayer.load(SoundID::Explosion2, "assets/sounds/Explosion2.wav");
+	mSoundPlayer.load(SoundID::Explosion3, "assets/sounds/Explosion3.wav");
+	mSoundPlayer.load(SoundID::Explosion4, "assets/sounds/Explosion4.wav");
+
 	mFonts.load(FontID::Pericles14, "assets/fonts/Peric.ttf", 14);
+
 	mTextures.load(TextureID::TitleScreen, "assets/textures/TitleScreen.png");
 	mTextures.load(TextureID::SpriteSheet, "assets/textures/SpriteSheet.png");
 }
@@ -94,6 +104,9 @@ Application::run()
 
 			// update the view
 			mViewStack.update(SecondsPerFrame);
+
+			// remove the stopped sounds
+			mSoundPlayer.removeStoppedSounds();
 		}
 
 		// render

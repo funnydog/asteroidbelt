@@ -1,5 +1,7 @@
 #pragma once
 
+#include "audiodevice.hpp"
+#include "soundplayer.hpp"
 #include "eventqueue.hpp"
 #include "window.hpp"
 #include "rendertarget.hpp"
@@ -23,6 +25,8 @@ private:
 	void registerViews();
 
 private:
+	AudioDevice   mAudioDevice;
+	SoundPlayer   mSoundPlayer;
 	EventQueue    mEventQueue;
 	Window        mWindow;
 	RenderTarget  mTarget;

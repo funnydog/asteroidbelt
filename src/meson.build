@@ -54,6 +54,8 @@ srcs = [
   'soundbuffer.cpp',
   'soundsource.cpp',
   'sound.cpp',
+  'soundplayer.cpp',
+
   # utilities / third party
   'alcheck.cpp',
   'glcheck.cpp',

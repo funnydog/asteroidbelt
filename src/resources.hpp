@@ -20,6 +20,16 @@ enum class TextureID
 	SpriteSheet,
 };
 
+enum class SoundID
+{
+	Shot1,
+	Shot2,
+	Explosion1,
+	Explosion2,
+	Explosion3,
+	Explosion4,
+};
+
 template<typename Resource, typename Identifier>
 class ResourceHolder;
 
@@ -28,3 +38,6 @@ typedef ResourceHolder<Font, FontID> FontHolder;
 
 class Texture;
 typedef ResourceHolder<Texture, TextureID> TextureHolder;
+
+class SoundBuffer;
+typedef ResourceHolder<SoundBuffer, SoundID> SoundBufferHolder;

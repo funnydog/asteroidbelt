@@ -8,6 +8,7 @@
 #include "shotmanager.hpp"
 
 class RenderTarget;
+class SoundPlayer;
 
 class EnemyManager
 {
@@ -15,7 +16,8 @@ public:
 	EnemyManager(
 		const FloatRect &screenBounds,
 		const Texture &texture, const FloatRect &initialFrame, unsigned frameCount,
-		const Sprite &player);
+		const Sprite &player,
+		SoundPlayer &soundPlayer);
 
 	void spawnEnemy(unsigned path);
 	void spawnWave(unsigned type);
@@ -48,4 +50,5 @@ private:
 	float mShipSpawnTimer;
 
 	bool mActive;
+	SoundPlayer &mSoundPlayer;
 };

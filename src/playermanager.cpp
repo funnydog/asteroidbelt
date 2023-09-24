@@ -4,6 +4,7 @@
 
 #include "playermanager.hpp"
 
+#include "soundplayer.hpp"
 #include "window.hpp"
 
 namespace
@@ -14,8 +15,8 @@ const int PlayerStartLives = 3;
 
 PlayerManager::PlayerManager(
 	const FloatRect &screenBounds,
-	const Texture &texture, const FloatRect &initialFrame,
-	unsigned frameCount)
+	const Texture &texture, const FloatRect &initialFrame, unsigned frameCount,
+	SoundPlayer &soundPlayer)
 	: mPlayerSprite(texture, initialFrame, PlayerStartLocation, {})
 	, mPlayerSpeed(160.f)
 	, mPlayerAreaLimit{
@@ -30,6 +31,7 @@ PlayerManager::PlayerManager(
 	, mMinShotTimer(0.2f)
 	, mPlayerRadius(15.f)
 	, mShotManager(screenBounds, 250.f, 2, texture, {{0.f, 300.f}, {5.f, 5.f}}, 4)
+	, mSoundPlayer(soundPlayer)
 {
 	FloatRect frame = initialFrame;
 	for (unsigned i = 1; i < frameCount; i++)
@@ -100,6 +102,7 @@ PlayerManager::fireShot()
 			mPlayerSprite.getLocation() + mGunOffset,
 			glm::vec2(0.f, -1.f),
 			true);
+		mSoundPlayer.play(SoundID::Shot1);
 	}
 }
 

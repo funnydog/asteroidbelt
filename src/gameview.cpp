@@ -33,13 +33,13 @@ GameView::GameView(ViewStack &stack, const Context &context)
 		     {{0, 450.f}, {2.f, 2.f}})
 	, mPlayerManager({{0.f, 0.f}, context.window->getSize()},
 			 context.textures->get(TextureID::SpriteSheet),
-			 {{0.f, 150.f}, {50.f, 50.f}},
-			 3)
+			 {{0.f, 150.f}, {50.f, 50.f}}, 3,
+			 *context.player)
 	, mEnemyManager({{0.f, 0.f}, context.window->getSize()},
 			context.textures->get(TextureID::SpriteSheet),
-			{{0, 200}, {50, 50}},
-			6,
-			mPlayerManager.getPlayer())
+			{{0, 200}, {50, 50}}, 6,
+			mPlayerManager.getPlayer(),
+			*context.player)
 	, mExplosionManager({{0.f, 450.f}, {2.f, 2.f}},
 			    context.textures->get(TextureID::SpriteSheet),
 			    {{0.f, 100.f}, {50.f, 50.f}}, 3,

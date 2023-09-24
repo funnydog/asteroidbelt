@@ -1,6 +1,8 @@
 #include <glm/glm.hpp>
 
 #include "enemymanager.hpp"
+
+#include "soundplayer.hpp"
 #include "utility.hpp"
 
 namespace
@@ -51,7 +53,8 @@ const std::vector<std::vector<glm::vec2>> Waypoints = {
 EnemyManager::EnemyManager(
 	const FloatRect &screenBounds,
 	const Texture &texture, const FloatRect &initialFrame, unsigned frameCount,
-	const Sprite &player)
+	const Sprite &player,
+	SoundPlayer &soundPlayer)
 	: mTexture(texture)
 	, mInitialFrame(initialFrame)
 	, mFrameCount(frameCount)
@@ -62,6 +65,7 @@ EnemyManager::EnemyManager(
 	, mNextWaveTimer(0.f)
 	, mShipSpawnTimer(0.f)
 	, mActive(true)
+	, mSoundPlayer(soundPlayer)
 {
 }
 
@@ -131,6 +135,7 @@ EnemyManager::update(float dt)
 			glm::vec2 dir = mPlayer.getCenter() - loc;
 			dir = glm::normalize(dir);
 			mShots.fireShot(loc, dir, false);
+			mSoundPlayer.play(SoundID::Shot2);
 		}
 		++it;
 	}

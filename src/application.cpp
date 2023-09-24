@@ -26,7 +26,7 @@ Application::Application()
 	, mTarget()
 	, mFonts()
 	, mTextures()
-	, mViewStack({ &mWindow, &mTarget, &mFonts, &mTextures, })
+	, mViewStack({ &mAudioDevice, &mSoundPlayer, &mWindow, &mTarget, &mFonts, &mTextures, })
 {
 	if (!glfwInit())
 	{

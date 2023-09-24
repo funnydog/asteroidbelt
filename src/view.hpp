@@ -5,11 +5,15 @@
 #include "event.hpp"
 #include "resources.hpp"
 
+class AudioDevice;
+class SoundPlayer;
 class Window;
 class RenderTarget;
 
 struct Context
 {
+	AudioDevice   *audio;
+	SoundPlayer   *player;
 	Window        *window;
 	RenderTarget  *target;
 	FontHolder    *fonts;

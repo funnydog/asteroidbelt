@@ -3,6 +3,7 @@ glew = dependency('glew')
 glfw3 = dependency('glfw3')
 glm = dependency('glm')
 opengl = dependency('gl')
+openal = dependency('openal')
 vorbisfile = dependency('vorbisfile')
 
 deps = [
@@ -10,6 +11,7 @@ deps = [
   glew,
   glfw3,
   glm,
+  openal,
   vorbisfile,
   opengl,
 ]
@@ -45,10 +47,12 @@ srcs = [
   'window.cpp',
 
   # audio
+  'audiodevice.cpp',
   'soundfile.cpp',
   'soundfilewav.cpp',
   'soundfileogg.cpp',
   # utilities / third party
+  'alcheck.cpp',
   'glcheck.cpp',
   'stb_image.cpp',
   'utility.cpp',

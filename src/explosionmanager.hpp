@@ -7,12 +7,15 @@
 
 #include "particle.hpp"
 
+class SoundPlayer;
+
 class ExplosionManager
 {
 public:
 	ExplosionManager(
 		const FloatRect &pointRectangle,
-		const Texture &texture, const FloatRect &textureRect, unsigned frameCount);
+		const Texture &texture, const FloatRect &textureRect, unsigned frameCount,
+		SoundPlayer &soundPlayer);
 
 	static glm::vec2 getRandomDirection(float scale);
 
@@ -26,4 +29,5 @@ private:
 	std::vector<FloatRect> mFrames;
 	FloatRect mPointRectangle;
 	std::vector<std::unique_ptr<Particle>> mParticles;
+	SoundPlayer &mSoundPlayer;
 };

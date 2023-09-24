@@ -42,8 +42,8 @@ GameView::GameView(ViewStack &stack, const Context &context)
 			mPlayerManager.getPlayer())
 	, mExplosionManager({{0.f, 450.f}, {2.f, 2.f}},
 			    context.textures->get(TextureID::SpriteSheet),
-			    {{0.f, 100.f}, {50.f, 50.f}},
-			    3)
+			    {{0.f, 100.f}, {50.f, 50.f}}, 3,
+			    *context.player)
 	, mCollisionManager(
 		mAsteroidManager,
 		mPlayerManager,

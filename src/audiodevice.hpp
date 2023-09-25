@@ -6,8 +6,7 @@
 
 #include <glm/glm.hpp>
 
-struct ALCdevice;
-struct ALCcontext;
+#include "alcheck.hpp"
 
 class AudioDevice
 {

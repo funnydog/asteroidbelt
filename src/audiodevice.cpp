@@ -3,7 +3,6 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-#include "alcheck.hpp"
 #include "audiodevice.hpp"
 
 namespace

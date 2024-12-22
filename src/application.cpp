@@ -11,8 +11,8 @@
 
 namespace
 {
-const unsigned SCREEN_WIDTH = 800;
-const unsigned SCREEN_HEIGHT = 600;
+const unsigned ScreenWidth = 800;
+const unsigned ScreenHeight = 600;
 }
 
 Application::Application()
@@ -32,7 +32,7 @@ Application::Application()
 		throw std::runtime_error(error);
 	}
 
-	mWindow.open("AsteroidBelt", SCREEN_WIDTH, SCREEN_HEIGHT);
+	mWindow.open("AsteroidBelt", ScreenWidth, ScreenHeight);
 
 	// track the window events
 	mEventQueue.track(mWindow);

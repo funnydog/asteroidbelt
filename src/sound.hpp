@@ -19,9 +19,9 @@ public:
 	void setBuffer(const SoundBuffer &buffer);
 
 	// derived from SoundSource
-	virtual void play() override;
-	virtual void pause() override;
-	virtual void stop() override;
+	void play() override;
+	void pause() override;
+	void stop() override;
 
 private:
 	Sound() = default;

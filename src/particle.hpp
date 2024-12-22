@@ -18,8 +18,8 @@ public:
 	float getDurationProgress() const;
 	bool isActive() const;
 
-	virtual void update(float dt) override;
-	virtual void draw(RenderTarget &target) override;
+	void update(float dt) override;
+	void draw(RenderTarget &target) override;
 
 private:
 	glm::vec2 mAcceleration;

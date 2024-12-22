@@ -49,6 +49,8 @@ public:
 	virtual void update(float dt);
 	virtual void draw(RenderTarget &target);
 
+	const Texture &getTexture() const;
+
 protected:
 	// drawable
 	const Texture &mTexture;

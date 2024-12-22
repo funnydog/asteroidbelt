@@ -192,3 +192,9 @@ Sprite::draw(RenderTarget &target)
 		target.blitQuad(mTexture, srcRect, dstRect, mTintColor);
 	}
 }
+
+const Texture &
+Sprite::getTexture() const
+{
+	return mTexture;
+}

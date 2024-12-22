@@ -113,21 +113,15 @@ GameView::render(RenderTarget &target)
 	mPlayerManager.draw(target);
 	mEnemyManager.draw(target);
 	mExplosionManager.draw(target);
-	mFont.draw(
-		target,
-		ScoreLocation,
-		"Score: " + std::to_string(
-			mPlayerManager.getScore()),
-		Color::White);
+
+	target.draw("Score: " + std::to_string(mPlayerManager.getScore()),
+	            ScoreLocation, mFont, Color::White);
 
 	if (mPlayerManager.getLives() >= 0)
 	{
-		mFont.draw(
-			target,
-			LivesLocation,
-			"Ships Remaining: " + std::to_string(
-				mPlayerManager.getLives()),
-			Color::White);
+		target.draw("Ships Remaining: "
+		            + std::to_string(mPlayerManager.getLives()),
+		            LivesLocation, mFont, Color::White);
 	}
 
 	target.draw();

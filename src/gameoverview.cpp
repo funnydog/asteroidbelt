@@ -49,6 +49,5 @@ GameOverView::handleEvent(const Event &event)
 void
 GameOverView::render(RenderTarget &target)
 {
-	mFont.draw(target, mPosition, Message, Color::White);
-	target.draw();
+	target.draw(Message, mPosition, mFont, Color::White);
 }

@@ -38,9 +38,5 @@ void
 TitleView::render(RenderTarget &target)
 {
 	target.clear(Color::Black);
-	target.blitQuad(
-		mTexture, {{0.f, 0.f}, {1.f, 1.f}},
-		{{0.f, 0.f}, glm::vec2(mTexture.getSize())},
-		Color::White);
-	target.draw();
+	target.draw(mTexture, glm::vec2(0.f), mTexture.getSize());
 }

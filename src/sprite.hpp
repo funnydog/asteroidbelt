@@ -8,8 +8,6 @@
 #include "color.hpp"
 #include "rect.hpp"
 
-class Texture;
-
 struct Sprite
 {
 	// position

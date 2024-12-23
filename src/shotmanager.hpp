@@ -9,6 +9,7 @@
 #include "sprite.hpp"
 
 class RenderTarget;
+class Texture;
 
 class ShotManager
 {

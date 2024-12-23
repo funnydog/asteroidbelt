@@ -9,6 +9,7 @@
 
 class RenderTarget;
 class SoundPlayer;
+class Texture;
 
 class ExplosionManager
 {

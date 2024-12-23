@@ -24,7 +24,7 @@ AsteroidManager::AsteroidManager(
 			glm::ivec2(width,height) + ScreenPadding * 2
 		}
 	, mTexture(texture)
-	, mInitialFrame(initialFrame)
+	, mFrameSize(initialFrame.size)
 	, mFrameCount(frameCount)
 {
 	// normalize the frame coordinates
@@ -44,8 +44,7 @@ void
 AsteroidManager::addAsteroid()
 {
 	auto asteroid = std::make_unique<Sprite>(
-		mTexture,
-		mInitialFrame,
+		mFrameSize,
 		glm::vec2(-500, -500),
 		glm::vec2(0.f));
 
@@ -75,7 +74,7 @@ AsteroidManager::randomLocation() const
 		switch (Utility::randomInt(3))
 		{
 		case 0:
-			loc.x = -mInitialFrame.size.x;
+			loc.x = -mFrameSize.x;
 			loc.y = Utility::randomInt(mScreenHeight);
 			break;
 
@@ -86,12 +85,12 @@ AsteroidManager::randomLocation() const
 
 		case 2:
 			loc.x = Utility::randomInt(mScreenWidth);
-			loc.y = -mInitialFrame.size.y;
+			loc.y = -mFrameSize.y;
 			break;
 		}
 		for (auto &aptr: mAsteroids)
 		{
-			if (aptr->isBoxColliding({ loc, mInitialFrame.size }))
+			if (aptr->isBoxColliding({ loc, mFrameSize }))
 			{
 				is_ok = false;
 				break;

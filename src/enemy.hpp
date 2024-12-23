@@ -13,7 +13,7 @@ class RenderTarget;
 class Enemy: public Sprite
 {
 public:
-	Enemy(glm::vec2 location, const Texture &texture, const FloatRect &initialFrame, unsigned frameCount);
+	Enemy(glm::vec2 frameSize, glm::vec2 location);
 
 	void addWaypoint(glm::vec2 waypoint);
 	bool hasReachedWaypoint() const;

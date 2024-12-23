@@ -18,18 +18,19 @@ static const std::vector<Color> Colors = {
 StarField::StarField(int width, int height, std::size_t count, glm::vec2 velocity,
 		     const Texture &texture, const FloatRect &textureRect)
 	: mTexture(texture)
+	, mUVFrame(textureRect / texture.getSize())
 	, mScreenWidth(width)
 	, mScreenHeight(height)
 {
-	mFrames.push_back(textureRect / texture.getSize());
 	while (count-->0)
 	{
 		glm::vec2 pos(Utility::randomInt(width), Utility::randomInt(height));
-		auto star = std::make_unique<Sprite>(texture, textureRect, pos, velocity);
+		auto star = std::make_unique<Sprite>(textureRect.size, pos, velocity);
 		auto color = Colors[Utility::randomInt(Colors.size())];
 		color *= 0.3f + Utility::randomFloat(0.5f);
 		star->tintColor = color;
-		star->frames = mFrames;
+		auto *uv = &mUVFrame;
+		star->frames = std::span(uv, uv+1);
 		mStars.push_back(std::move(star));
 	}
 }

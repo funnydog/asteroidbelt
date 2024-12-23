@@ -26,20 +26,17 @@ ExplosionManager::ExplosionManager(
 	const Texture &texture, const FloatRect &textureRect, unsigned frameCount,
 	SoundPlayer &soundPlayer)
 	: mTexture(texture)
-	, mPointRectangle(pointRectangle)
+	, mFrameSize(textureRect.size)
+	, mPointSize(pointRectangle.size)
+	, mPointUV(pointRectangle / texture.getSize())
 	, mSoundPlayer(soundPlayer)
 {
-	FloatRect frame = textureRect;
 	FloatRect uv = textureRect / texture.getSize();
 	while (frameCount-->0)
 	{
-		mFrames.push_back(frame);
-		frame.pos.x += frame.size.x;
-
 		mExpUV.push_back(uv);
 		uv.pos.x += uv.size.x;
 	}
-	mPointUV = pointRectangle / texture.getSize();
 }
 
 glm::vec2
@@ -58,13 +55,12 @@ ExplosionManager::getRandomDirection(float scale)
 void
 ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 {
-	glm::vec2 pieceLocation = location - mFrames[0].size * 0.5f;
+	glm::vec2 pieceLocation = location - mFrameSize * 0.5f;
 	int pieces = MinPieceCount + Utility::randomInt(MaxPieceCount-MinPieceCount);
 	while (pieces-->0)
 	{
 		auto pPtr = std::make_unique<Particle>(
-			mTexture,
-			mFrames[Utility::randomInt(mFrames.size())],
+			mFrameSize,
 			pieceLocation,
 			getRandomDirection(PieceSpeedScale) + momentum,
 			glm::vec2(0.f),
@@ -82,7 +78,7 @@ ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 	while (points-->0)
 	{
 		auto pPtr = std::make_unique<Particle>(
-			mTexture, mPointRectangle,
+			mPointSize,
 			location,
 			momentum + getRandomDirection(
 				PointSpeedMin

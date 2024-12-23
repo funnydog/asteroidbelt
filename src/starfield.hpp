@@ -22,7 +22,7 @@ public:
 
 private:
 	const Texture &mTexture;
-	std::vector<FloatRect> mFrames;
+	FloatRect mUVFrame;
 	std::vector<std::unique_ptr<Sprite>> mStars;
 	int mScreenWidth;
 	int mScreenHeight;

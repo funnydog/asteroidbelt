@@ -7,8 +7,7 @@ ShotManager::ShotManager(
 	float shotSpeed, float collisionRadius,
 	const Texture &texture, const FloatRect &initialFrame, unsigned frameCount)
 	: mTexture(texture)
-	, mInitialFrame(initialFrame)
-	, mFrameCount(frameCount)
+	, mFrameSize(initialFrame.size)
 	, mShotSpeed(shotSpeed)
 	, mCollisionRadius(collisionRadius)
 	, mScreenBounds(screenBounds)
@@ -24,14 +23,8 @@ ShotManager::ShotManager(
 void
 ShotManager::fireShot(glm::vec2 location, glm::vec2 velocity, bool)
 {
-	auto shot = std::make_unique<Sprite>(mTexture, mInitialFrame, location, velocity);
+	auto shot = std::make_unique<Sprite>(mFrameSize, location, velocity);
 	shot->velocity *= mShotSpeed;
-	FloatRect frame = mInitialFrame;
-	for (unsigned x = 1; x < mFrameCount; x++)
-	{
-		frame.pos.x += frame.size.x;
-		shot->addFrame(frame);
-	}
 	shot->frames = mUVFrames;
 	shot->collisionRadius = mCollisionRadius;
 	mShots.push_back(std::move(shot));

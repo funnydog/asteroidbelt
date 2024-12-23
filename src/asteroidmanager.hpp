@@ -36,7 +36,7 @@ private:
 	FloatRect mScreenBounds;
 
 	const Texture &mTexture;
-	FloatRect mInitialFrame;
+	glm::vec2 mFrameSize;
 	unsigned mFrameCount;
 	std::vector<FloatRect> mFrames;
 public:

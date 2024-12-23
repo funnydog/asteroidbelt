@@ -19,7 +19,7 @@ PlayerManager::PlayerManager(
 	const Texture &texture, const FloatRect &initialFrame, unsigned frameCount,
 	SoundPlayer &soundPlayer)
 	: mTexture(texture)
-	, mPlayerSprite(texture, initialFrame, PlayerStartLocation, {})
+	, mPlayerSprite(initialFrame.size, PlayerStartLocation, {})
 	, mPlayerSpeed(160.f)
 	, mPlayerAreaLimit{
 			{0.f, screenBounds.size.y * 0.5f},

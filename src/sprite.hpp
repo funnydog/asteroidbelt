@@ -31,7 +31,7 @@ struct Sprite
 	float collisionRadius;
 	glm::vec2 boundingPadding;
 
-	Sprite(const Texture &texture, FloatRect initialFrame, glm::vec2 location, glm::vec2 velocity);
+	Sprite(glm::vec2 frameSize, glm::vec2 location, glm::vec2 velocity);
 
 	glm::vec2 getCenter() const;
 	const FloatRect& getSource() const;
@@ -40,8 +40,6 @@ struct Sprite
 	FloatRect getBoundingBox() const;
 	bool isBoxColliding(const FloatRect &other) const;
 	bool isCircleColliding(glm::vec2 otherCenter, float otherRadius) const;
-
-	void addFrame(const FloatRect &rect);
 
 	virtual void update(float dt);
 };

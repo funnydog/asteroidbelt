@@ -5,20 +5,14 @@ namespace
 static const float EnemyRadius = 15.f;
 }
 
-Enemy::Enemy(glm::vec2 location, const Texture &texture, const FloatRect &initialFrame, unsigned frameCount)
-	: Sprite(texture, initialFrame, location, glm::vec2(0.f))
+Enemy::Enemy(glm::vec2 frameSize, glm::vec2 location)
+	: Sprite(frameSize, location, glm::vec2(0.f))
 	, mWaypoints()
 	, mCurrentWaypoint(location)
 	, mSpeed(120.f)
 	, mDestroyed(false)
 	, mPreviousLocation(location)
 {
-	FloatRect rect = initialFrame;
-	for (unsigned i = 1; i < frameCount; i++)
-	{
-		rect.pos.x += rect.size.x;
-		addFrame(rect);
-	}
 	collisionRadius = EnemyRadius;
 }
 

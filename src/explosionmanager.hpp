@@ -27,9 +27,9 @@ public:
 
 private:
 	const Texture &mTexture;
-	std::vector<FloatRect> mFrames;
+	glm::vec2 mFrameSize;
 	std::vector<FloatRect> mExpUV;
-	FloatRect mPointRectangle;
+	glm::vec2 mPointSize;
 	FloatRect mPointUV;
 	std::vector<std::unique_ptr<Particle>> mParticles;
 	SoundPlayer &mSoundPlayer;

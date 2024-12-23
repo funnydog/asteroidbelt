@@ -80,11 +80,7 @@ EnemyManager::EnemyManager(
 void
 EnemyManager::spawnEnemy(unsigned path)
 {
-	auto enemyPtr = std::make_unique<Enemy>(
-		Waypoints[path][0],
-		mTexture,
-		mInitialFrame,
-		mFrameCount);
+	auto enemyPtr = std::make_unique<Enemy>(mInitialFrame.size, Waypoints[path][0]);
 	enemyPtr->frames = mFrames;
 	for (unsigned x = 1; x < Waypoints[path].size(); x++)
 	{

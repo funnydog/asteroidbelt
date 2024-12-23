@@ -3,15 +3,11 @@
 #include "texture.hpp"
 #include "rendertarget.hpp"
 
-Sprite::Sprite(
-	const Texture &texture,
-	FloatRect initialFrame,
-	glm::vec2 location,
-	glm::vec2 velocity)
+Sprite::Sprite(glm::vec2 frameSize, glm::vec2 location, glm::vec2 velocity)
 	: location(location)
 	, velocity(velocity)
 	, rotation(0.f)
-	, frameSize(initialFrame.size)
+	, frameSize(frameSize)
 	, tintColor(Color::White)
 	, frameIndex(0)
 	, frameElapsed(0.f)
@@ -19,7 +15,6 @@ Sprite::Sprite(
 	, collisionRadius(0.f)
 	, boundingPadding(0.f)
 {
-	addFrame(initialFrame);
 }
 
 glm::vec2
@@ -62,12 +57,6 @@ Sprite::isCircleColliding(glm::vec2 otherCenter, float otherRadius) const
 	otherCenter -= getCenter();
 	return otherCenter.x * otherCenter.x + otherCenter.y * otherCenter.y <
 		radiusSum * radiusSum;
-}
-
-void
-Sprite::addFrame(const FloatRect &rect)
-{
-	// frames.emplace_back(rect.pos / textureSize, rect.size / textureSize);
 }
 
 void

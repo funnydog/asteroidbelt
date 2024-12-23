@@ -25,8 +25,7 @@ public:
 
 private:
 	const Texture &mTexture;
-	FloatRect mInitialFrame;
-	unsigned mFrameCount;
+	glm::vec2 mFrameSize;
 	std::vector<FloatRect> mUVFrames;
 	float mShotSpeed;
 	float mCollisionRadius;

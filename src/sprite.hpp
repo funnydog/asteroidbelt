@@ -39,7 +39,7 @@ struct Sprite
 
 	FloatRect getBoundingBox() const;
 	bool isBoxColliding(const FloatRect &other) const;
-	bool isCircleColliding(glm::vec2 otherCenter, float otherRadius);
+	bool isCircleColliding(glm::vec2 otherCenter, float otherRadius) const;
 
 	void addFrame(const FloatRect &rect);
 

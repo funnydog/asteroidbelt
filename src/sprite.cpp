@@ -57,7 +57,7 @@ Sprite::isBoxColliding(const FloatRect &other) const
 }
 
 bool
-Sprite::isCircleColliding(glm::vec2 otherCenter, float otherRadius)
+Sprite::isCircleColliding(glm::vec2 otherCenter, float otherRadius) const
 {
 	auto radiusSum = collisionRadius+otherRadius;
 	otherCenter -= getCenter();

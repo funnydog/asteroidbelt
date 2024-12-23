@@ -9,11 +9,10 @@
 class Particle: public Sprite
 {
 public:
-	Particle(
-		glm::vec2 location, glm::vec2 velocity, glm::vec2 acceleration,
-		float maxSpeed, float duration,
-		Color initialColor, Color finalColor,
-		const Texture &texture, const FloatRect &textureRect);
+	Particle(const Texture &texture, FloatRect initialFrame,
+	         glm::vec2 location, glm::vec2 velocity, glm::vec2 acceleration,
+	         float maxSpeed, float duration,
+	         Color initialColor, Color finalColor);
 	float getElapsedDuration() const;
 	float getDurationProgress() const;
 	bool isActive() const;

@@ -58,14 +58,14 @@ ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 	while (pieces-->0)
 	{
 		auto pPtr = std::make_unique<Particle>(
+			mTexture,
+			mFrames[Utility::randomInt(mFrames.size())],
 			pieceLocation,
 			getRandomDirection(PieceSpeedScale) + momentum,
 			glm::vec2(0.f),
 			ExplosionMaxSpeed,
 			Duration,
-			InitialColor, FinalColor,
-			mTexture,
-			mFrames[Utility::randomInt(mFrames.size())]);
+			InitialColor, FinalColor);
 		mParticles.push_back(std::move(pPtr));
 	}
 
@@ -74,6 +74,7 @@ ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 	while (points-->0)
 	{
 		auto pPtr = std::make_unique<Particle>(
+			mTexture, mPointRectangle,
 			location,
 			momentum + getRandomDirection(
 				PointSpeedMin
@@ -81,9 +82,7 @@ ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 			glm::vec2(0.f),
 			ExplosionMaxSpeed,
 			Duration,
-			InitialColor, FinalColor,
-			mTexture,
-			mPointRectangle);
+			InitialColor, FinalColor);
 		mParticles.push_back(std::move(pPtr));
 	}
 

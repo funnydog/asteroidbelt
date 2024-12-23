@@ -1,11 +1,10 @@
 #include "particle.hpp"
 
-Particle::Particle(
-		glm::vec2 location, glm::vec2 velocity, glm::vec2 acceleration,
-		float maxSpeed, float duration,
-		Color initialColor, Color finalColor,
-		const Texture &texture, const FloatRect &textureRect)
-	: Sprite(texture, textureRect, location, velocity)
+Particle::Particle(const Texture &texture, FloatRect initialFrame,
+                   glm::vec2 location, glm::vec2 velocity, glm::vec2 acceleration,
+                   float maxSpeed, float duration,
+                   Color initialColor, Color finalColor)
+	: Sprite(texture, initialFrame, location, velocity)
 	, mAcceleration(acceleration)
 	, mMaxSpeed(maxSpeed)
 	, mInitialDuration(duration)

@@ -21,6 +21,7 @@ StarField::StarField(int width, int height, std::size_t count, glm::vec2 velocit
 	, mScreenWidth(width)
 	, mScreenHeight(height)
 {
+	mFrames.push_back(textureRect / texture.getSize());
 	while (count-->0)
 	{
 		glm::vec2 pos(Utility::randomInt(width), Utility::randomInt(height));
@@ -28,6 +29,7 @@ StarField::StarField(int width, int height, std::size_t count, glm::vec2 velocit
 		auto color = Colors[Utility::randomInt(Colors.size())];
 		color *= 0.3f + Utility::randomFloat(0.5f);
 		star->tintColor = color;
+		star->frames = mFrames;
 		mStars.push_back(std::move(star));
 	}
 }

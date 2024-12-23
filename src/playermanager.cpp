@@ -4,6 +4,7 @@
 
 #include "playermanager.hpp"
 
+#include "rendertarget.hpp"
 #include "soundplayer.hpp"
 #include "window.hpp"
 
@@ -17,7 +18,8 @@ PlayerManager::PlayerManager(
 	const FloatRect &screenBounds,
 	const Texture &texture, const FloatRect &initialFrame, unsigned frameCount,
 	SoundPlayer &soundPlayer)
-	: mPlayerSprite(texture, initialFrame, PlayerStartLocation, {})
+	: mTexture(texture)
+	, mPlayerSprite(texture, initialFrame, PlayerStartLocation, {})
 	, mPlayerSpeed(160.f)
 	, mPlayerAreaLimit{
 			{0.f, screenBounds.size.y * 0.5f},
@@ -173,6 +175,6 @@ PlayerManager::draw(RenderTarget &target)
 	mShotManager.draw(target);
 	if (!mDestroyed)
 	{
-		mPlayerSprite.draw(target);
+		target.draw(mPlayerSprite, mTexture);
 	}
 }

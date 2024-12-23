@@ -7,6 +7,7 @@
 
 #include "particle.hpp"
 
+class RenderTarget;
 class SoundPlayer;
 
 class ExplosionManager

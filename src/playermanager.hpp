@@ -41,6 +41,7 @@ private:
 	void limitMovements();
 
 private:
+	const Texture &mTexture;
 	Sprite mPlayerSprite;
 	float  mPlayerSpeed;
 	FloatRect mPlayerAreaLimit;

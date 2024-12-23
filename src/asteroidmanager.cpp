@@ -155,7 +155,7 @@ AsteroidManager::draw(RenderTarget &target)
 {
 	for (auto &aptr: mAsteroids)
 	{
-		aptr->draw(target);
+		target.draw(*aptr, mTexture);
 	}
 }
 

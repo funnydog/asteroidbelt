@@ -1,5 +1,7 @@
 #include "shotmanager.hpp"
 
+#include "rendertarget.hpp"
+
 ShotManager::ShotManager(
 	const FloatRect &screenBounds,
 	float shotSpeed, float collisionRadius,
@@ -51,6 +53,6 @@ ShotManager::draw(RenderTarget &target)
 {
 	for (auto &shotPtr: mShots)
 	{
-		shotPtr->draw(target);
+		target.draw(*shotPtr, mTexture);
 	}
 }

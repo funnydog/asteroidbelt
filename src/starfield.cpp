@@ -17,7 +17,8 @@ static const std::vector<Color> Colors = {
 
 StarField::StarField(int width, int height, std::size_t count, glm::vec2 velocity,
 		     const Texture &texture, const FloatRect &textureRect)
-	: mScreenWidth(width)
+	: mTexture(texture)
+	, mScreenWidth(width)
 	, mScreenHeight(height)
 {
 	while (count-->0)
@@ -52,6 +53,6 @@ StarField::draw(RenderTarget &target)
 {
 	for (auto &starPtr: mStars)
 	{
-		starPtr->draw(target);
+		target.draw(*starPtr, mTexture);
 	}
 }

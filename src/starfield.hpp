@@ -21,6 +21,7 @@ public:
 	void draw(RenderTarget &target);
 
 private:
+	const Texture &mTexture;
 	std::vector<std::unique_ptr<Sprite>> mStars;
 	int mScreenWidth;
 	int mScreenHeight;

@@ -2,6 +2,7 @@
 
 #include "enemymanager.hpp"
 
+#include "rendertarget.hpp"
 #include "soundplayer.hpp"
 #include "utility.hpp"
 
@@ -152,7 +153,10 @@ EnemyManager::draw(RenderTarget &target)
 	mShots.draw(target);
 	for (auto &enemyPtr: mEnemies)
 	{
-		enemyPtr->draw(target);
+		if (enemyPtr->isActive())
+		{
+			target.draw(*enemyPtr, mTexture);
+		}
 	}
 }
 

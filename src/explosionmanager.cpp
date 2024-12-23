@@ -1,6 +1,7 @@
 #include "explosionmanager.hpp"
 
 #include "resources.hpp"
+#include "rendertarget.hpp"
 #include "soundplayer.hpp"
 #include "utility.hpp"
 
@@ -111,6 +112,9 @@ ExplosionManager::draw(RenderTarget &target)
 {
 	for (auto &pPtr: mParticles)
 	{
-		pPtr->draw(target);
+		if (pPtr->isActive())
+		{
+			target.draw(*pPtr, mTexture);
+		}
 	}
 }

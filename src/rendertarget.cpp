@@ -388,9 +388,3 @@ RenderTarget::draw(const Sprite &sprite, const Texture &texture)
 		}
 	}
 }
-
-void
-RenderTarget::draw(const Sprite &sprite)
-{
-	draw(sprite, sprite.getTexture());
-}

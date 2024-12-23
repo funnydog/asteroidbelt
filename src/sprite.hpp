@@ -47,11 +47,8 @@ public:
 
 	virtual void update(float dt);
 
-	const Texture &getTexture() const;
-
 protected:
 	// drawable
-	const Texture &mTexture;
 	glm::vec2 mTextureSize;
 	std::vector<FloatRect> mFrames;
 	glm::vec2 mFrameSize;

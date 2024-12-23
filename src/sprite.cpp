@@ -1,5 +1,6 @@
 #include "sprite.hpp"
 
+#include "texture.hpp"
 #include "rendertarget.hpp"
 
 Sprite::Sprite(
@@ -7,8 +8,7 @@ Sprite::Sprite(
 	FloatRect initialFrame,
 	glm::vec2 location,
 	glm::vec2 velocity)
-	: mTexture(texture)
-	, mTextureSize(texture.getSize())
+	: mTextureSize(texture.getSize())
 	, mFrameSize(initialFrame.size)
 	, mTintColor(Color::White)
 	, mFrameIndex(0)
@@ -169,10 +169,4 @@ Sprite::update(float dt)
 		}
 	}
 	mLocation += mVelocity * dt;
-}
-
-const Texture &
-Sprite::getTexture() const
-{
-	return mTexture;
 }

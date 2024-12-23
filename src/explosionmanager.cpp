@@ -72,8 +72,8 @@ ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 			Duration,
 			InitialColor, FinalColor);
 
-		pPtr->frames.clear();
-		pPtr->frames.push_back(mExpUV[Utility::randomInt(mExpUV.size())]);
+		auto pos = mExpUV.begin() + Utility::randomInt(mExpUV.size());
+		pPtr->frames = std::span(pos, pos+1);
 		mParticles.push_back(std::move(pPtr));
 	}
 
@@ -91,8 +91,8 @@ ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 			ExplosionMaxSpeed,
 			Duration,
 			InitialColor, FinalColor);
-		pPtr->frames.clear();
-		pPtr->frames.push_back(mPointUV);
+		auto *pos = &mPointUV;
+		pPtr->frames = std::span(pos, pos+1);
 		mParticles.push_back(std::move(pPtr));
 	}
 

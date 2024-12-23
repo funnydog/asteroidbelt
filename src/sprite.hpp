@@ -1,5 +1,6 @@
 #pragma once
 
+#include <span>
 #include <vector>
 
 #include <glm/glm.hpp>
@@ -17,8 +18,7 @@ struct Sprite
 	float rotation;
 
 	// drawable
-	glm::vec2 textureSize;
-	std::vector<FloatRect> frames;
+	std::span<const FloatRect> frames;
 	glm::vec2 frameSize;
 	Color tintColor;
 

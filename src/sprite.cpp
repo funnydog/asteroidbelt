@@ -11,7 +11,6 @@ Sprite::Sprite(
 	: location(location)
 	, velocity(velocity)
 	, rotation(0.f)
-	, textureSize(texture.getSize())
 	, frameSize(initialFrame.size)
 	, tintColor(Color::White)
 	, frameIndex(0)
@@ -68,7 +67,7 @@ Sprite::isCircleColliding(glm::vec2 otherCenter, float otherRadius) const
 void
 Sprite::addFrame(const FloatRect &rect)
 {
-	frames.emplace_back(rect.pos / textureSize, rect.size / textureSize);
+	// frames.emplace_back(rect.pos / textureSize, rect.size / textureSize);
 }
 
 void

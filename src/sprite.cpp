@@ -8,15 +8,15 @@ Sprite::Sprite(
 	FloatRect initialFrame,
 	glm::vec2 location,
 	glm::vec2 velocity)
-	: textureSize(texture.getSize())
+	: location(location)
+	, velocity(velocity)
+	, rotation(0.f)
+	, textureSize(texture.getSize())
 	, frameSize(initialFrame.size)
 	, tintColor(Color::White)
 	, frameIndex(0)
 	, frameElapsed(0.f)
 	, frameDelay(0.1f)
-	, location(location)
-	, velocity(velocity)
-	, rotation(0.f)
 	, collisionRadius(0.f)
 	, boundingPadding(0.f)
 {

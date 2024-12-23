@@ -11,6 +11,11 @@ class Texture;
 
 struct Sprite
 {
+	// position
+	glm::vec2 location;
+	glm::vec2 velocity;
+	float rotation;
+
 	// drawable
 	glm::vec2 textureSize;
 	std::vector<FloatRect> frames;
@@ -21,11 +26,6 @@ struct Sprite
 	unsigned frameIndex;
 	float frameElapsed;
 	float frameDelay;
-
-	// position
-	glm::vec2 location;
-	glm::vec2 velocity;
-	float rotation;
 
 	// collision
 	float collisionRadius;

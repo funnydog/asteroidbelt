@@ -132,7 +132,7 @@ EnemyManager::update(float dt)
 
 		if (Utility::randomFloat(100.f) <= ShipShotChance)
 		{
-			glm::vec2 loc = (*it)->getLocation() + GunOffset;
+			glm::vec2 loc = (*it)->location + GunOffset;
 			glm::vec2 dir = mPlayer.getCenter() - loc;
 			dir = glm::normalize(dir);
 			mShots.fireShot(loc, dir, false);

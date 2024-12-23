@@ -8,117 +8,45 @@ Sprite::Sprite(
 	FloatRect initialFrame,
 	glm::vec2 location,
 	glm::vec2 velocity)
-	: mTextureSize(texture.getSize())
-	, mFrameSize(initialFrame.size)
-	, mTintColor(Color::White)
-	, mFrameIndex(0)
-	, mFrameElapsed(0.f)
-	, mFrameDelay(0.1f)
-	, mLocation(location)
-	, mVelocity(velocity)
-	, mRotation(0.f)
-	, mCollisionRadius(0.f)
-	, mBoundingPadding(0.f)
+	: textureSize(texture.getSize())
+	, frameSize(initialFrame.size)
+	, tintColor(Color::White)
+	, frameIndex(0)
+	, frameElapsed(0.f)
+	, frameDelay(0.1f)
+	, location(location)
+	, velocity(velocity)
+	, rotation(0.f)
+	, collisionRadius(0.f)
+	, boundingPadding(0.f)
 {
 	addFrame(initialFrame);
 }
 
 glm::vec2
-Sprite::getLocation() const
-{
-	return mLocation;
-}
-
-void
-Sprite::setLocation(glm::vec2 location)
-{
-	mLocation = location;
-}
-
-glm::vec2
-Sprite::getVelocity() const
-{
-	return mVelocity;
-}
-
-void
-Sprite::setVelocity(glm::vec2 velocity)
-{
-	mVelocity = velocity;
-}
-
-Color
-Sprite::getTintColor() const
-{
-	return mTintColor;
-}
-
-void
-Sprite::setTintColor(Color color)
-{
-	mTintColor = color;
-}
-
-float
-Sprite::getRotation() const
-{
-	return mRotation;
-}
-
-void
-Sprite::setRotation(float rotation)
-{
-	mRotation = rotation;
-}
-
-unsigned
-Sprite::getFrameIndex() const
-{
-	return mFrameIndex;
-}
-
-void
-Sprite::setFrameIndex(unsigned index)
-{
-	mFrameIndex = index % mFrames.size();
-}
-
-float
-Sprite::getFrameDelay() const
-{
-	return mFrameDelay;
-}
-
-void
-Sprite::setFrameDelay(float delay)
-{
-	mFrameDelay = delay;
-}
-
-glm::vec2
 Sprite::getCenter() const
 {
-	return mFrameSize * 0.5f + mLocation;
+	return frameSize * 0.5f + location;
 }
 
 const FloatRect&
 Sprite::getSource() const
 {
-	return mFrames[mFrameIndex];
+	return frames[frameIndex];
 }
 
 FloatRect
 Sprite::getDestination() const
 {
-	return { mLocation, mFrameSize };
+	return { location, frameSize };
 }
 
 FloatRect
 Sprite::getBoundingBox() const
 {
 	return {
-		mLocation + mBoundingPadding,
-		mFrameSize - mBoundingPadding * 2.f
+		location + boundingPadding,
+		frameSize - boundingPadding * 2.f
 	};
 }
 
@@ -131,42 +59,30 @@ Sprite::isBoxColliding(const FloatRect &other) const
 bool
 Sprite::isCircleColliding(glm::vec2 otherCenter, float otherRadius)
 {
-	auto radiusSum = mCollisionRadius+otherRadius;
+	auto radiusSum = collisionRadius+otherRadius;
 	otherCenter -= getCenter();
 	return otherCenter.x * otherCenter.x + otherCenter.y * otherCenter.y <
 		radiusSum * radiusSum;
 }
 
-float
-Sprite::getCollisionRadius() const
-{
-	return mCollisionRadius;
-}
-
-void
-Sprite::setCollisionRadius(float radius)
-{
-	mCollisionRadius = radius;
-}
-
 void
 Sprite::addFrame(const FloatRect &rect)
 {
-	mFrames.emplace_back(rect.pos / mTextureSize, rect.size / mTextureSize);
+	frames.emplace_back(rect.pos / textureSize, rect.size / textureSize);
 }
 
 void
 Sprite::update(float dt)
 {
-	mFrameElapsed += dt;
-	if (mFrameElapsed >= mFrameDelay)
+	frameElapsed += dt;
+	if (frameElapsed >= frameDelay)
 	{
-		mFrameElapsed -= mFrameDelay;
-		mFrameIndex++;
-		if (mFrameIndex >= mFrames.size())
+		frameElapsed -= frameDelay;
+		frameIndex++;
+		if (frameIndex >= frames.size())
 		{
-			mFrameIndex = 0;
+			frameIndex = 0;
 		}
 	}
-	mLocation += mVelocity * dt;
+	location += velocity * dt;
 }

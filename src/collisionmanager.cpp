@@ -46,13 +46,13 @@ CollisionManager::checkShotToEnemy()
 		{
 			auto enemyCenter = enemyPtr->getCenter();
 			if (shotPtr->isCircleColliding(
-				    enemyCenter, enemyPtr->getCollisionRadius()))
+				    enemyCenter, enemyPtr->collisionRadius))
 			{
-				shotPtr->setLocation(OffScreen);
+				shotPtr->location = OffScreen;
 				enemyPtr->setDestroyed(true);
 				mPlayerManager.addScore(EnemyPointValue);
 				mExplosionManager.addExplosion(
-					enemyCenter, enemyPtr->getVelocity() * 0.2f);
+					enemyCenter, enemyPtr->velocity * 0.2f);
 			}
 		}
 	}
@@ -67,11 +67,10 @@ CollisionManager::checkShotToAsteroid()
 		{
 			if (shotPtr->isCircleColliding(
 				    asteroidPtr->getCenter(),
-				    asteroidPtr->getCollisionRadius()))
+				    asteroidPtr->collisionRadius))
 			{
-				shotPtr->setLocation(OffScreen);
-				asteroidPtr->setVelocity(
-					asteroidPtr->getVelocity() + ShotToAsteroidImpact);
+				shotPtr->location = OffScreen;
+				asteroidPtr->velocity += ShotToAsteroidImpact;
 			}
 		}
 	}
@@ -81,12 +80,12 @@ void
 CollisionManager::checkShotToPlayer()
 {
 	auto playerCenter = mPlayerManager.getPlayer().getCenter();
-	auto playerRadius = mPlayerManager.getPlayer().getCollisionRadius();
+	auto playerRadius = mPlayerManager.getPlayer().collisionRadius;
 	for (auto &shotPtr: mEnemyManager.mShots.mShots)
 	{
 		if (shotPtr->isCircleColliding(playerCenter, playerRadius))
 		{
-			shotPtr->setLocation(OffScreen);
+			shotPtr->location = OffScreen;
 			mPlayerManager.setDestroyed(true);
 			mExplosionManager.addExplosion(playerCenter, glm::vec2(0.f));
 		}
@@ -97,7 +96,7 @@ void
 CollisionManager::checkEnemyToPlayer()
 {
 	auto playerCenter = mPlayerManager.getPlayer().getCenter();
-	auto playerRadius = mPlayerManager.getPlayer().getCollisionRadius();
+	auto playerRadius = mPlayerManager.getPlayer().collisionRadius;
 	for (auto &enemyPtr: mEnemyManager.mEnemies)
 	{
 		if (enemyPtr->isCircleColliding(playerCenter, playerRadius))
@@ -105,7 +104,7 @@ CollisionManager::checkEnemyToPlayer()
 			enemyPtr->setDestroyed(true);
 			mExplosionManager.addExplosion(
 				enemyPtr->getCenter(),
-				enemyPtr->getVelocity() * 0.1f);
+				enemyPtr->velocity * 0.1f);
 
 			mPlayerManager.setDestroyed(true);
 			mExplosionManager.addExplosion(playerCenter, glm::vec2(0.f));
@@ -117,16 +116,16 @@ void
 CollisionManager::checkAsteroidToPlayer()
 {
 	auto playerCenter = mPlayerManager.getPlayer().getCenter();
-	auto playerRadius = mPlayerManager.getPlayer().getCollisionRadius();
+	auto playerRadius = mPlayerManager.getPlayer().collisionRadius;
 	for (auto &asteroidPtr: mAsteroidManager.mAsteroids)
 	{
 		if (asteroidPtr->isCircleColliding(playerCenter, playerRadius))
 		{
 			mExplosionManager.addExplosion(
 				asteroidPtr->getCenter(),
-				asteroidPtr->getVelocity() * 0.1f);
+				asteroidPtr->velocity * 0.1f);
 
-			asteroidPtr->setLocation(OffScreen);
+			asteroidPtr->location = OffScreen;
 
 			mPlayerManager.setDestroyed(true);
 			mExplosionManager.addExplosion(playerCenter, glm::vec2(0.f));

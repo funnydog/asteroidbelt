@@ -27,7 +27,7 @@ StarField::StarField(int width, int height, std::size_t count, glm::vec2 velocit
 		auto star = std::make_unique<Sprite>(texture, textureRect, pos, velocity);
 		auto color = Colors[Utility::randomInt(Colors.size())];
 		color *= 0.3f + Utility::randomFloat(0.5f);
-		star->setTintColor(color);
+		star->tintColor = color;
 		mStars.push_back(std::move(star));
 	}
 }
@@ -38,12 +38,12 @@ StarField::update(float dt)
 	for (auto &starPtr: mStars)
 	{
 		starPtr->update(dt);
-		auto pos = starPtr->getLocation();
+		auto pos = starPtr->location;
 		if (pos.y > mScreenHeight)
 		{
 			pos.x = Utility::randomInt(mScreenWidth);
 			pos.y = 0;
-			starPtr->setLocation(pos);
+			starPtr->location = pos;
 		}
 	}
 }

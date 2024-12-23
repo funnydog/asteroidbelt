@@ -19,7 +19,7 @@ void
 ShotManager::fireShot(glm::vec2 location, glm::vec2 velocity, bool)
 {
 	auto shot = std::make_unique<Sprite>(mTexture, mInitialFrame, location, velocity);
-	shot->setVelocity(shot->getVelocity() * mShotSpeed);
+	shot->velocity *= mShotSpeed;
 
 	FloatRect frame = mInitialFrame;
 	for (unsigned x = 1; x < mFrameCount; x++)
@@ -27,7 +27,7 @@ ShotManager::fireShot(glm::vec2 location, glm::vec2 velocity, bool)
 		frame.pos.x += frame.size.x;
 		shot->addFrame(frame);
 	}
-	shot->setCollisionRadius(mCollisionRadius);
+	shot->collisionRadius = mCollisionRadius;
 	mShots.push_back(std::move(shot));
 }
 

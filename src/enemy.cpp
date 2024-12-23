@@ -19,7 +19,7 @@ Enemy::Enemy(glm::vec2 location, const Texture &texture, const FloatRect &initia
 		rect.pos.x += rect.size.x;
 		addFrame(rect);
 	}
-	setCollisionRadius(EnemyRadius);
+	collisionRadius = EnemyRadius;
 }
 
 void
@@ -31,8 +31,8 @@ Enemy::addWaypoint(glm::vec2 waypoint)
 bool
 Enemy::hasReachedWaypoint() const
 {
-	auto distance = glm::distance(mLocation, mCurrentWaypoint);
-	return distance < mFrameSize.x * 0.5f;
+	auto distance = glm::distance(location, mCurrentWaypoint);
+	return distance < frameSize.x * 0.5f;
 }
 
 bool
@@ -67,16 +67,16 @@ Enemy::update(float dt)
 		return;
 	}
 
-	mPreviousLocation = mLocation;
+	mPreviousLocation = location;
 	glm::vec2 dir = mCurrentWaypoint - mPreviousLocation;
 	if (dir.x != 0.f || dir.y != 0.f)
 	{
 		dir = glm::normalize(dir);
 	}
-	mVelocity = dir * mSpeed;
+	velocity = dir * mSpeed;
 	Sprite::update(dt);
-	setRotation(glm::atan(mLocation.y - mPreviousLocation.y,
-			      mLocation.x - mPreviousLocation.x));
+	rotation = glm::atan(location.y - mPreviousLocation.y,
+	                     location.x - mPreviousLocation.x);
 
 	if (hasReachedWaypoint() && !mWaypoints.empty())
 	{

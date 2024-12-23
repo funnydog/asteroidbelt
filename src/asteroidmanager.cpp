@@ -49,9 +49,9 @@ AsteroidManager::addAsteroid()
 		asteroid->addFrame(frame);
 	}
 
-	asteroid->setFrameDelay(1.1f / mFrameCount);
-	asteroid->setRotation(Utility::randomFloat(3.141592654f));
-	asteroid->setCollisionRadius(15.f);
+	asteroid->frameDelay = 1.1f / mFrameCount;
+	asteroid->rotation = Utility::randomFloat(3.141592654f);
+	asteroid->collisionRadius = 15.f;
 
 	mAsteroids.push_back(std::move(asteroid));
 }
@@ -131,8 +131,8 @@ AsteroidManager::update(float dt)
 		aptr->update(dt);
 		if (!isOnScreen(*aptr))
 		{
-			aptr->setLocation(randomLocation());
-			aptr->setVelocity(randomVelocity());
+			aptr->location = randomLocation();
+			aptr->velocity = randomVelocity();
 		}
 	}
 
@@ -142,7 +142,7 @@ AsteroidManager::update(float dt)
 		{
 			if (mAsteroids[x]->isCircleColliding(
 				    mAsteroids[y]->getCenter(),
-				    mAsteroids[y]->getCollisionRadius()))
+				    mAsteroids[y]->collisionRadius))
 			{
 				bounceAsteroids(*mAsteroids[x], *mAsteroids[y]);
 			}
@@ -162,11 +162,11 @@ AsteroidManager::draw(RenderTarget &target)
 void
 AsteroidManager::bounceAsteroids(Sprite &a1, Sprite &a2)
 {
-	glm::vec2 cOfMass = (a1.getVelocity() + a2.getVelocity()) * 0.5f;
+	glm::vec2 cOfMass = (a1.velocity + a2.velocity) * 0.5f;
 
 	auto normal1 = glm::normalize(a2.getCenter() - a1.getCenter());
 	auto normal2 = glm::normalize(a1.getCenter() - a2.getCenter());
 
-	a1.setVelocity(glm::reflect(a1.getVelocity() - cOfMass, normal1) + cOfMass);
-	a2.setVelocity(glm::reflect(a2.getVelocity() - cOfMass, normal2) + cOfMass);
+	a1.velocity = glm::reflect(a1.velocity - cOfMass, normal1) + cOfMass;
+	a2.velocity = glm::reflect(a2.velocity - cOfMass, normal2) + cOfMass;
 }

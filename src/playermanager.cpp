@@ -41,7 +41,7 @@ PlayerManager::PlayerManager(
 		frame.pos.x += frame.size.x;
 		mPlayerSprite.addFrame(frame);
 	}
-	mPlayerSprite.setCollisionRadius(mPlayerRadius);
+	mPlayerSprite.collisionRadius = mPlayerRadius;
 }
 
 const Sprite&
@@ -89,7 +89,7 @@ PlayerManager::addScore(long points)
 void
 PlayerManager::reset()
 {
-	mPlayerSprite.setLocation(PlayerStartLocation);
+	mPlayerSprite.location = PlayerStartLocation;
 	mDestroyed = false;
 	mShotManager.mShots.clear();
 }
@@ -101,7 +101,7 @@ PlayerManager::fireShot()
 	{
 		mShotTimer = 0.f;
 		mShotManager.fireShot(
-			mPlayerSprite.getLocation() + mGunOffset,
+			mPlayerSprite.location + mGunOffset,
 			glm::vec2(0.f, -1.f),
 			true);
 		mSoundPlayer.play(SoundID::Shot1);
@@ -113,12 +113,12 @@ PlayerManager::handleKeyboardInput(Window &window)
 {
 	int h = window.isKeyPressed(GLFW_KEY_RIGHT) - window.isKeyPressed(GLFW_KEY_LEFT);
 	int v = window.isKeyPressed(GLFW_KEY_DOWN) - window.isKeyPressed(GLFW_KEY_UP);
-	auto vel = mPlayerSprite.getVelocity() + glm::vec2(h, v);
+	auto vel = mPlayerSprite.velocity + glm::vec2(h, v);
 	if (vel.x != 0.f && vel.y != 0.f)
 	{
 		vel = glm::normalize(vel);
 	}
-	mPlayerSprite.setVelocity(vel);
+	mPlayerSprite.velocity = vel;
 
 	if (window.isKeyPressed(GLFW_KEY_SPACE))
 	{
@@ -146,7 +146,7 @@ PlayerManager::limitMovements()
 		mPlayerAreaLimit.pos.y,
 		mPlayerAreaLimit.pos.y + mPlayerAreaLimit.size.y - dst.size.y);
 
-	 mPlayerSprite.setLocation(loc);
+	mPlayerSprite.location = loc;
 }
 
 void
@@ -155,15 +155,13 @@ PlayerManager::update(float dt, Window &window)
 	mShotManager.update(dt);
 	if (!mDestroyed)
 	{
-		mPlayerSprite.setVelocity(glm::vec2(0.f));
+		mPlayerSprite.velocity = glm::vec2(0.f);
 
 		mShotTimer += dt;
 		handleKeyboardInput(window);
 		handleGamepadInput();
 
-		mPlayerSprite.setVelocity(
-			mPlayerSprite.getVelocity() * mPlayerSpeed);
-
+		mPlayerSprite.velocity *= mPlayerSpeed;
 		mPlayerSprite.update(dt);
 		limitMovements();
 	}
@@ -173,7 +171,7 @@ void
 PlayerManager::draw(RenderTarget &target)
 {
 	mShotManager.draw(target);
-	if (!mDestroyed)
+ 	if (!mDestroyed)
 	{
 		target.draw(mPlayerSprite, mTexture);
 	}

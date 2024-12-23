@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <glm/glm.hpp>
 
 #include "rect.hpp"
@@ -42,6 +44,7 @@ private:
 
 private:
 	const Texture &mTexture;
+
 	Sprite mPlayerSprite;
 	float  mPlayerSpeed;
 	FloatRect mPlayerAreaLimit;

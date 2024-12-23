@@ -38,13 +38,13 @@ Particle::update(float dt)
 {
 	if (isActive())
 	{
-		mVelocity += mAcceleration;
-		if (glm::length(mVelocity) > mMaxSpeed)
+		velocity += mAcceleration;
+		if (glm::length(velocity) > mMaxSpeed)
 		{
-			mVelocity = glm::normalize(mVelocity);
-			mVelocity *= mMaxSpeed;
+			velocity = glm::normalize(velocity);
+			velocity *= mMaxSpeed;
 		}
-		mTintColor = mix(mInitialColor, mFinalColor, getDurationProgress());
+		tintColor = mix(mInitialColor, mFinalColor, getDurationProgress());
 		mRemainingDuration -= dt;
 		Sprite::update(dt);
 	}

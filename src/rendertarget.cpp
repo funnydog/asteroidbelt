@@ -356,8 +356,8 @@ RenderTarget::draw(const Sprite &sprite, const Texture &texture)
 	reserve(4, indices);
 	auto dst = sprite.getDestination();
 	auto &uv = sprite.getSource();
-	auto color = sprite.getTintColor();
-	auto rotation = sprite.getRotation();
+	auto color = sprite.tintColor;
+	auto rotation = sprite.rotation;
 	if (rotation == 0.f)
 	{
 		for (auto unit : units)

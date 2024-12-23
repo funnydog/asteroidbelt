@@ -7,7 +7,6 @@
 #include "color.hpp"
 #include "rect.hpp"
 
-class RenderTarget;
 class Texture;
 
 class Sprite
@@ -47,7 +46,6 @@ public:
 	void addFrame(const FloatRect &rect);
 
 	virtual void update(float dt);
-	virtual void draw(RenderTarget &target);
 
 	const Texture &getTexture() const;
 

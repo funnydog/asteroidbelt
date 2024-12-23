@@ -22,7 +22,6 @@ public:
 	void setDestroyed(bool destroyed);
 
 	void update(float dt) override;
-	void draw(RenderTarget &target) override;
 
 private:
 	std::deque<glm::vec2> mWaypoints;

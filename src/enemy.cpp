@@ -84,12 +84,3 @@ Enemy::update(float dt)
 		mWaypoints.pop_front();
 	}
 }
-
-void
-Enemy::draw(RenderTarget &target)
-{
-	if (isActive())
-	{
-		Sprite::draw(target);
-	}
-}

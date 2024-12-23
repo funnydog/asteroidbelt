@@ -19,7 +19,6 @@ public:
 	bool isActive() const;
 
 	void update(float dt) override;
-	void draw(RenderTarget &target) override;
 
 private:
 	glm::vec2 mAcceleration;

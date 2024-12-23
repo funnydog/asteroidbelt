@@ -171,12 +171,6 @@ Sprite::update(float dt)
 	mLocation += mVelocity * dt;
 }
 
-void
-Sprite::draw(RenderTarget &target)
-{
-	target.draw(*this);
-}
-
 const Texture &
 Sprite::getTexture() const
 {

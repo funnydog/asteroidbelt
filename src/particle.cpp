@@ -49,12 +49,3 @@ Particle::update(float dt)
 		Sprite::update(dt);
 	}
 }
-
-void
-Particle::draw(RenderTarget &target)
-{
-	if (isActive())
-	{
-		Sprite::draw(target);
-	}
-}

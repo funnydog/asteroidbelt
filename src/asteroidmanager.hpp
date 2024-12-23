@@ -38,6 +38,7 @@ private:
 	const Texture &mTexture;
 	FloatRect mInitialFrame;
 	unsigned mFrameCount;
+	std::vector<FloatRect> mFrames;
 public:
 	std::vector<std::unique_ptr<Sprite>> mAsteroids;
 };

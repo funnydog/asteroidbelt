@@ -27,6 +27,13 @@ AsteroidManager::AsteroidManager(
 	, mInitialFrame(initialFrame)
 	, mFrameCount(frameCount)
 {
+	// normalize the frame coordinates
+	FloatRect frame = initialFrame / texture.getSize();
+	while (frameCount-->0)
+	{
+		mFrames.push_back(frame);
+		frame.pos.x += frame.size.x;
+	}
 	while (asteroidCount-->0)
 	{
 		addAsteroid();
@@ -42,13 +49,7 @@ AsteroidManager::addAsteroid()
 		glm::vec2(-500, -500),
 		glm::vec2(0.f));
 
-	FloatRect frame = mInitialFrame;
-	for (unsigned i = 1; i < mFrameCount; i++)
-	{
-		frame.pos.x += frame.size.x;
-		asteroid->addFrame(frame);
-	}
-
+	asteroid->frames = mFrames;
 	asteroid->frameDelay = 1.1f / mFrameCount;
 	asteroid->rotation = Utility::randomFloat(3.141592654f);
 	asteroid->collisionRadius = 15.f;

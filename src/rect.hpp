@@ -12,6 +12,8 @@ struct Rect
 	template <typename U>
 	explicit Rect(const Rect<U> &rectangle);
 
+	constexpr Rect& operator/=(const T &divider);
+
 	bool contains(T point) const;
 	bool intersect(const Rect<T> &other);
 
@@ -44,6 +46,22 @@ Rect<T>::Rect(const Rect<U> &other)
 	: pos(static_cast<T>(other.pos))
 	, size(static_cast<T>(other.size))
 {
+}
+
+template <typename T>
+constexpr Rect<T> &
+Rect<T>::operator/=(const T &divider)
+{
+	pos /= divider;
+	size /= divider;
+	return *this;
+}
+
+template <typename T>
+constexpr Rect<T>
+operator/(const Rect<T> &dividend, const T &divisor)
+{
+	return { dividend.pos / divisor, dividend.size / divisor };
 }
 
 template <typename T>

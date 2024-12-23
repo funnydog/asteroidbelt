@@ -30,11 +30,16 @@ ExplosionManager::ExplosionManager(
 	, mSoundPlayer(soundPlayer)
 {
 	FloatRect frame = textureRect;
+	FloatRect uv = textureRect / texture.getSize();
 	while (frameCount-->0)
 	{
 		mFrames.push_back(frame);
 		frame.pos.x += frame.size.x;
+
+		mExpUV.push_back(uv);
+		uv.pos.x += uv.size.x;
 	}
+	mPointUV = pointRectangle / texture.getSize();
 }
 
 glm::vec2
@@ -66,6 +71,9 @@ ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 			ExplosionMaxSpeed,
 			Duration,
 			InitialColor, FinalColor);
+
+		pPtr->frames.clear();
+		pPtr->frames.push_back(mExpUV[Utility::randomInt(mExpUV.size())]);
 		mParticles.push_back(std::move(pPtr));
 	}
 
@@ -83,6 +91,8 @@ ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 			ExplosionMaxSpeed,
 			Duration,
 			InitialColor, FinalColor);
+		pPtr->frames.clear();
+		pPtr->frames.push_back(mPointUV);
 		mParticles.push_back(std::move(pPtr));
 	}
 

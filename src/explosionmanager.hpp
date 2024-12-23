@@ -28,7 +28,9 @@ public:
 private:
 	const Texture &mTexture;
 	std::vector<FloatRect> mFrames;
+	std::vector<FloatRect> mExpUV;
 	FloatRect mPointRectangle;
+	FloatRect mPointUV;
 	std::vector<std::unique_ptr<Particle>> mParticles;
 	SoundPlayer &mSoundPlayer;
 };

@@ -350,9 +350,9 @@ RenderTarget::draw(const FloatRect &rect, const glm::mat4 &transform, glm::vec2 
 }
 
 void
-RenderTarget::draw(const Sprite &sprite)
+RenderTarget::draw(const Sprite &sprite, const Texture &texture)
 {
-	setTexture(&sprite.getTexture());
+	setTexture(&texture);
 	reserve(4, indices);
 	auto dst = sprite.getDestination();
 	auto &uv = sprite.getSource();
@@ -387,4 +387,10 @@ RenderTarget::draw(const Sprite &sprite)
 			mVertices.push_back(v);
 		}
 	}
+}
+
+void
+RenderTarget::draw(const Sprite &sprite)
+{
+	draw(sprite, sprite.getTexture());
 }

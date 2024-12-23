@@ -60,6 +60,7 @@ public:
 	void draw(const FloatRect &rect, glm::vec2 pos, glm::vec2 size, Color color=Color::White);
 	void draw(const FloatRect &rect, const glm::mat4 &transform, glm::vec2 size, Color color=Color::White);
 	void draw(glm::vec2 pos, glm::vec2 size, Color color);
+	void draw(const Sprite &sprite, const Texture &texture);
 	void draw(const Sprite &sprite);
 	void beginRendering();
 	void newLayer();

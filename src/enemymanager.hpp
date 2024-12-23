@@ -35,6 +35,7 @@ private:
 	const Texture &mTexture;
 	FloatRect mInitialFrame;
 	unsigned mFrameCount;
+	std::vector<FloatRect> mFrames;
 
 	const Sprite &mPlayer;
 public:

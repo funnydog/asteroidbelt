@@ -68,6 +68,13 @@ EnemyManager::EnemyManager(
 	, mActive(true)
 	, mSoundPlayer(soundPlayer)
 {
+	// normalize the frame coordinates
+	FloatRect frame = initialFrame / texture.getSize();
+	while (frameCount-->0)
+	{
+		mFrames.push_back(frame);
+		frame.pos.x += frame.size.x;
+	}
 }
 
 void
@@ -78,6 +85,7 @@ EnemyManager::spawnEnemy(unsigned path)
 		mTexture,
 		mInitialFrame,
 		mFrameCount);
+	enemyPtr->frames = mFrames;
 	for (unsigned x = 1; x < Waypoints[path].size(); x++)
 	{
 		enemyPtr->addWaypoint(Waypoints[path][x]);

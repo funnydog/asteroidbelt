@@ -35,12 +35,14 @@ PlayerManager::PlayerManager(
 	, mShotManager(screenBounds, 250.f, 2, texture, {{0.f, 300.f}, {5.f, 5.f}}, 4)
 	, mSoundPlayer(soundPlayer)
 {
-	FloatRect frame = initialFrame;
-	for (unsigned i = 1; i < frameCount; i++)
+	// normalize the frame coordinates
+	FloatRect frame = initialFrame / texture.getSize();
+	while (frameCount-->0)
 	{
+		mPlayerFrames.push_back(frame);
 		frame.pos.x += frame.size.x;
-		mPlayerSprite.addFrame(frame);
 	}
+	mPlayerSprite.frames = mPlayerFrames;
 	mPlayerSprite.collisionRadius = mPlayerRadius;
 }
 

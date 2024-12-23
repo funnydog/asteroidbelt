@@ -44,6 +44,7 @@ private:
 
 private:
 	const Texture &mTexture;
+	std::vector<FloatRect> mPlayerFrames;
 
 	Sprite mPlayerSprite;
 	float  mPlayerSpeed;

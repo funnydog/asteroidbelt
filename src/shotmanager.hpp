@@ -27,6 +27,7 @@ private:
 	const Texture &mTexture;
 	FloatRect mInitialFrame;
 	unsigned mFrameCount;
+	std::vector<FloatRect> mUVFrames;
 	float mShotSpeed;
 	float mCollisionRadius;
 	FloatRect mScreenBounds;

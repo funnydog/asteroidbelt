@@ -32,8 +32,8 @@ ExplosionManager::ExplosionManager(
 	FloatRect frame = textureRect;
 	while (frameCount-->0)
 	{
-		frame.pos.x += frame.size.x;
 		mFrames.push_back(frame);
+		frame.pos.x += frame.size.x;
 	}
 }
 

@@ -82,10 +82,7 @@ EnemyManager::spawnEnemy(unsigned path)
 {
 	auto enemyPtr = std::make_unique<Enemy>(mInitialFrame.size, Waypoints[path][0]);
 	enemyPtr->frames = mFrames;
-	for (unsigned x = 1; x < Waypoints[path].size(); x++)
-	{
-		enemyPtr->addWaypoint(Waypoints[path][x]);
-	}
+	enemyPtr->addPath(Waypoints[path]);
 	mEnemies.push_back(std::move(enemyPtr));
 }
 

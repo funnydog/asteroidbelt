@@ -1,6 +1,6 @@
 #pragma once
 
-#include <deque>
+#include <span>
 
 #include <glm/glm.hpp>
 
@@ -15,7 +15,7 @@ class Enemy: public Sprite
 public:
 	Enemy(glm::vec2 frameSize, glm::vec2 location);
 
-	void addWaypoint(glm::vec2 waypoint);
+	void addPath(std::span<const glm::vec2> path);
 	bool hasReachedWaypoint() const;
 	bool isActive() const;
 
@@ -24,9 +24,8 @@ public:
 	void update(float dt) override;
 
 private:
-	std::deque<glm::vec2> mWaypoints;
-	glm::vec2 mCurrentWaypoint;
+	std::span<const glm::vec2> mPath;
+	unsigned mNext;
 	float mSpeed;
 	bool mDestroyed;
-	glm::vec2 mPreviousLocation;
 };

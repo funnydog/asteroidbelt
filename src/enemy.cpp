@@ -7,25 +7,29 @@ static const float EnemyRadius = 15.f;
 
 Enemy::Enemy(glm::vec2 frameSize, glm::vec2 location)
 	: Sprite(frameSize, location, glm::vec2(0.f))
-	, mWaypoints()
-	, mCurrentWaypoint(location)
+	, mPath()
+	, mNext(0)
 	, mSpeed(120.f)
 	, mDestroyed(false)
-	, mPreviousLocation(location)
 {
 	collisionRadius = EnemyRadius;
 }
 
 void
-Enemy::addWaypoint(glm::vec2 waypoint)
+Enemy::addPath(std::span<const glm::vec2> path)
 {
-	mWaypoints.push_back(waypoint);
+	mPath = path;
+	mNext = 0;
 }
 
 bool
 Enemy::hasReachedWaypoint() const
 {
-	auto distance = glm::distance(location, mCurrentWaypoint);
+	if (mNext >= mPath.size())
+	{
+		return true;
+	}
+	auto distance = glm::distance(location, mPath[mNext]);
 	return distance < frameSize.x * 0.5f;
 }
 
@@ -36,7 +40,7 @@ Enemy::isActive() const
 	{
 		return false;
 	}
-	if (!mWaypoints.empty())
+	if (mNext < mPath.size())
 	{
 		return true;
 	}
@@ -61,20 +65,20 @@ Enemy::update(float dt)
 		return;
 	}
 
-	mPreviousLocation = location;
-	glm::vec2 dir = mCurrentWaypoint - mPreviousLocation;
+	glm::vec2 dir = mPath[mNext] - location;
 	if (dir.x != 0.f || dir.y != 0.f)
 	{
 		dir = glm::normalize(dir);
 	}
 	velocity = dir * mSpeed;
-	Sprite::update(dt);
-	rotation = glm::atan(location.y - mPreviousLocation.y,
-	                     location.x - mPreviousLocation.x);
 
-	if (hasReachedWaypoint() && !mWaypoints.empty())
+	auto previousLocation = location;
+	Sprite::update(dt);
+	rotation = glm::atan(location.y - previousLocation.y,
+	                     location.x - previousLocation.x);
+
+	if (hasReachedWaypoint() && mNext < mPath.size())
 	{
-		mCurrentWaypoint = mWaypoints.front();
-		mWaypoints.pop_front();
+		mNext++;
 	}
 }

@@ -7,9 +7,6 @@
 #include "rect.hpp"
 #include "sprite.hpp"
 
-class Texture;
-class RenderTarget;
-
 class Enemy: public Sprite
 {
 public:

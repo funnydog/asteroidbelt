@@ -13,12 +13,13 @@ public:
 	};
 public:
 	SoundSource();
+	virtual ~SoundSource();
+
 	SoundSource(const SoundSource &other);
 	SoundSource& operator=(const SoundSource &other);
 	SoundSource(SoundSource&& other) noexcept;
 	SoundSource& operator=(SoundSource &&other) noexcept;
 
-	virtual ~SoundSource();
 	virtual Status getStatus() const;
 
 	virtual void play() = 0;

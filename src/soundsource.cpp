@@ -12,6 +12,15 @@ SoundSource::SoundSource()
 	alCheck(alSourcei(mSource, AL_BUFFER, 0));
 }
 
+SoundSource::~SoundSource()
+{
+	if (mSource)
+	{
+		alCheck(alSourcei(mSource, AL_BUFFER, 0));
+		alCheck(alDeleteSources(1, &mSource));
+	}
+}
+
 SoundSource::SoundSource(const SoundSource &other)
 {
 	ALint buffer;
@@ -55,15 +64,6 @@ SoundSource::operator=(SoundSource &&other) noexcept
 {
 	std::swap(mSource, other.mSource);
 	return *this;
-}
-
-SoundSource::~SoundSource()
-{
-	if (mSource)
-	{
-		alCheck(alSourcei(mSource, AL_BUFFER, 0));
-		alCheck(alDeleteSources(1, &mSource));
-	}
 }
 
 float

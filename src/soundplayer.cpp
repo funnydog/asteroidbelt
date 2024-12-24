@@ -48,7 +48,7 @@ SoundPlayer::play(SoundID soundID, glm::vec3 position)
 void
 SoundPlayer::removeStoppedSounds()
 {
-	mSounds.remove_if([](const auto &sound) {
+	std::erase_if(mSounds, [](const auto &sound) {
 		return sound.getStatus() == SoundSource::Stopped;
 	});
 }

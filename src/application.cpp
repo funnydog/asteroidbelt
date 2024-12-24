@@ -93,6 +93,7 @@ Application::run()
 
 		processInput();
 		mViewStack.update(frameTime);
+		mSoundPlayer.removeStoppedSounds();
 
 		// render
 		mViewStack.render(mTarget);

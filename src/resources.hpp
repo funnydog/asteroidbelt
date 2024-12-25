@@ -38,6 +38,3 @@ typedef ResourceHolder<Font, FontID> FontHolder;
 
 class Texture;
 typedef ResourceHolder<Texture, TextureID> TextureHolder;
-
-class SoundBuffer;
-typedef ResourceHolder<SoundBuffer, SoundID> SoundBufferHolder;

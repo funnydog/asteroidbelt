@@ -1,8 +1,8 @@
 #include "explosionmanager.hpp"
 
+#include "audiodevice.hpp"
 #include "resources.hpp"
 #include "rendertarget.hpp"
-#include "soundplayer.hpp"
 #include "utility.hpp"
 
 namespace
@@ -24,12 +24,12 @@ const Color FinalColor = Color::Transparent;
 ExplosionManager::ExplosionManager(
 	const FloatRect &pointRectangle,
 	const Texture &texture, const FloatRect &textureRect, unsigned frameCount,
-	SoundPlayer &soundPlayer)
+	AudioDevice &audioDevice)
 	: mTexture(texture)
 	, mFrameSize(textureRect.size)
 	, mPointSize(pointRectangle.size)
 	, mPointUV(pointRectangle / texture.getSize())
-	, mSoundPlayer(soundPlayer)
+	, mAudioDevice(audioDevice)
 {
 	FloatRect uv = textureRect / texture.getSize();
 	while (frameCount-->0)
@@ -92,7 +92,7 @@ ExplosionManager::addExplosion(glm::vec2 location, glm::vec2 momentum)
 		mParticles.push_back(std::move(pPtr));
 	}
 
-	mSoundPlayer.play(static_cast<SoundID>(Utility::randomInt(4) + static_cast<int>(SoundID::Explosion1)));
+	mAudioDevice.play(static_cast<SoundID>(Utility::randomInt(4) + static_cast<int>(SoundID::Explosion1)));
 }
 
 void

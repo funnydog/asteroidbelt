@@ -9,7 +9,7 @@
 #include "shotmanager.hpp"
 #include "texture.hpp"
 
-class SoundPlayer;
+class AudioDevice;
 class Window;
 
 class PlayerManager
@@ -18,7 +18,7 @@ public:
 	PlayerManager(
 		const FloatRect &screenBounds,
 		const Texture &texture, const FloatRect &initialFrame, unsigned frameCount,
-		SoundPlayer &soundPlayer);
+		AudioDevice &autioDevice);
 
 	void update(float dt, Window &window);
 	void draw(RenderTarget &target);
@@ -63,5 +63,5 @@ public:
 	ShotManager mShotManager;
 
 private:
-	SoundPlayer &mSoundPlayer;
+	AudioDevice &mAudioDevice;
 };

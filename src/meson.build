@@ -4,7 +4,6 @@ deps += dependency('glfw3', required : true, fallback : ['glfw', 'glfw_dep'])
 deps += dependency('glm', required : true, fallback : ['glm', 'glm_dep'])
 deps += dependency('freetype2', required : true, fallback : ['freetype2', 'freetype_dep'])
 deps += dependency('openal', required : true, fallback : ['openal-soft', 'openal_dep'])
-deps += dependency('vorbisfile', required : true, fallback : ['vorbis', 'vorbisfile_dep'])
 
 srcs = [
   # application
@@ -39,13 +38,6 @@ srcs = [
 
   # audio
   'audiodevice.cpp',
-  'soundfile.cpp',
-  'soundfilewav.cpp',
-  'soundfileogg.cpp',
-  'soundbuffer.cpp',
-  'soundsource.cpp',
-  'sound.cpp',
-  'soundplayer.cpp',
 
   # utilities / third party
   'alcheck.cpp',

@@ -17,13 +17,12 @@ const unsigned ScreenHeight = 600;
 
 Application::Application()
 	: mAudioDevice()
-	, mSoundPlayer(mAudioDevice)
 	, mEventQueue()
 	, mWindow()
 	, mTarget()
 	, mFonts()
 	, mTextures()
-	, mViewStack({ &mAudioDevice, &mSoundPlayer, &mWindow, &mTarget, &mFonts, &mTextures, })
+	, mViewStack({ &mAudioDevice, &mWindow, &mTarget, &mFonts, &mTextures, })
 {
 	if (!glfwInit())
 	{
@@ -39,6 +38,13 @@ Application::Application()
 
 	// tell the target to render on the window
 	mTarget.use(mWindow);
+
+	// audio initialization
+	if (!mAudioDevice.open(""))
+	{
+		throw std::runtime_error("Cannot open the audio device");
+	}
+	mAudioDevice.setMasterVolume(30.f);
 
 	// with a context in use we load the assets
 	loadAssets();
@@ -59,12 +65,12 @@ Application::~Application()
 void
 Application::loadAssets()
 {
-	mSoundPlayer.load(SoundID::Shot1, "assets/sounds/Shot1.wav");
-	mSoundPlayer.load(SoundID::Shot2, "assets/sounds/Shot2.wav");
-	mSoundPlayer.load(SoundID::Explosion1, "assets/sounds/Explosion1.wav");
-	mSoundPlayer.load(SoundID::Explosion2, "assets/sounds/Explosion2.wav");
-	mSoundPlayer.load(SoundID::Explosion3, "assets/sounds/Explosion3.wav");
-	mSoundPlayer.load(SoundID::Explosion4, "assets/sounds/Explosion4.wav");
+	mAudioDevice.load(SoundID::Shot1, "assets/sounds/Shot1.wav");
+	mAudioDevice.load(SoundID::Shot2, "assets/sounds/Shot2.wav");
+	mAudioDevice.load(SoundID::Explosion1, "assets/sounds/Explosion1.wav");
+	mAudioDevice.load(SoundID::Explosion2, "assets/sounds/Explosion2.wav");
+	mAudioDevice.load(SoundID::Explosion3, "assets/sounds/Explosion3.wav");
+	mAudioDevice.load(SoundID::Explosion4, "assets/sounds/Explosion4.wav");
 
 	mFonts.load(FontID::Pericles14, "assets/fonts/Peric.ttf", 14);
 
@@ -93,7 +99,7 @@ Application::run()
 
 		processInput();
 		mViewStack.update(frameTime);
-		mSoundPlayer.removeStoppedSounds();
+		mAudioDevice.update();
 
 		// render
 		mViewStack.render(mTarget);

@@ -7,8 +7,8 @@
 
 #include "particle.hpp"
 
+class AudioDevice;
 class RenderTarget;
-class SoundPlayer;
 class Texture;
 
 class ExplosionManager
@@ -17,7 +17,7 @@ public:
 	ExplosionManager(
 		const FloatRect &pointRectangle,
 		const Texture &texture, const FloatRect &textureRect, unsigned frameCount,
-		SoundPlayer &soundPlayer);
+		AudioDevice &audioDevice);
 
 	static glm::vec2 getRandomDirection(float scale);
 
@@ -33,5 +33,5 @@ private:
 	glm::vec2 mPointSize;
 	FloatRect mPointUV;
 	std::vector<std::unique_ptr<Particle>> mParticles;
-	SoundPlayer &mSoundPlayer;
+	AudioDevice &mAudioDevice;
 };

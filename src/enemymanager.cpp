@@ -2,8 +2,8 @@
 
 #include "enemymanager.hpp"
 
+#include "audiodevice.hpp"
 #include "rendertarget.hpp"
-#include "soundplayer.hpp"
 #include "utility.hpp"
 
 namespace
@@ -55,7 +55,7 @@ EnemyManager::EnemyManager(
 	const FloatRect &screenBounds,
 	const Texture &texture, const FloatRect &initialFrame, unsigned frameCount,
 	const Sprite &player,
-	SoundPlayer &soundPlayer)
+	AudioDevice &audioDevice)
 	: mTexture(texture)
 	, mInitialFrame(initialFrame)
 	, mFrameCount(frameCount)
@@ -66,7 +66,7 @@ EnemyManager::EnemyManager(
 	, mNextWaveTimer(0.f)
 	, mShipSpawnTimer(0.f)
 	, mActive(true)
-	, mSoundPlayer(soundPlayer)
+	, mAudioDevice(audioDevice)
 {
 	// normalize the frame coordinates
 	FloatRect frame = initialFrame / texture.getSize();
@@ -137,7 +137,7 @@ EnemyManager::update(float dt)
 			glm::vec2 dir = mPlayer.getCenter() - loc;
 			dir = glm::normalize(dir);
 			mShots.fireShot(loc, dir, false);
-			mSoundPlayer.play(SoundID::Shot2);
+			mAudioDevice.play(SoundID::Shot2);
 		}
 		++it;
 	}

@@ -71,7 +71,7 @@ SoundFileWav::open(const std::string &filename, Info &info)
 			info.sampleRate = format.nSamplesPerSec;
 			mBytesPerSample = format.nAvgBytesPerSec / format.nSamplesPerSec;
 		}
-		else if (std::equal(header.chunkId+0, header.chunkId+1, "data"))
+		else if (std::equal(header.chunkId+0, header.chunkId+4, "data"))
 		{
 			mDataStart = mStream.tellg();
 			mDataEnd = mDataStart + header.chunkSize;

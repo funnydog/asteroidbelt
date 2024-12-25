@@ -90,7 +90,7 @@ AudioDevice::open(const std::string &name)
 		auto audioContext = alcCreateContext(audioDevice, nullptr);
 		if (!audioContext)
 		{
-			alcCloseDevice(mAudioDevice);
+			alcCloseDevice(audioDevice);
 			return false;
 		}
 		mAudioDevice = audioDevice;
